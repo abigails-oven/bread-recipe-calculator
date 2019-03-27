@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  BreadRecipeCalculator
+//  BreadCalculator
 //
 //  Created by Scott Levie on 3/27/19.
 //  Copyright © 2019 Scott Levie. All rights reserved.

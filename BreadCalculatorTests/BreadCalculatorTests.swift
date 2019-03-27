@@ -1,15 +1,15 @@
 //
-//  BreadRecipeCalculatorTests.swift
-//  BreadRecipeCalculatorTests
+//  BreadCalculatorTests.swift
+//  BreadCalculatorTests
 //
 //  Created by Scott Levie on 3/27/19.
 //  Copyright © 2019 Scott Levie. All rights reserved.
 //
 
 import XCTest
-@testable import BreadRecipeCalculator
+@testable import BreadCalculator
 
-class BreadRecipeCalculatorTests: XCTestCase {
+class BreadCalculatorTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
