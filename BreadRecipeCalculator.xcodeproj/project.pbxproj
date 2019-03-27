@@ -8,11 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		D2670A0B224B7C0600CAE7A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A0A224B7C0600CAE7A4 /* AppDelegate.swift */; };
-		D2670A0D224B7C0600CAE7A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A0C224B7C0600CAE7A4 /* ViewController.swift */; };
-		D2670A10224B7C0600CAE7A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2670A0E224B7C0600CAE7A4 /* Main.storyboard */; };
 		D2670A12224B7C0700CAE7A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2670A11224B7C0700CAE7A4 /* Assets.xcassets */; };
 		D2670A15224B7C0700CAE7A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2670A13224B7C0700CAE7A4 /* LaunchScreen.storyboard */; };
 		D2670A20224B7C0700CAE7A4 /* BreadRecipeCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A1F224B7C0700CAE7A4 /* BreadRecipeCalculatorTests.swift */; };
+		D2670A38224B7C2F00CAE7A4 /* RecipeCalculatorModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A2B224B7C2F00CAE7A4 /* RecipeCalculatorModuleApi.swift */; };
+		D2670A39224B7C2F00CAE7A4 /* RecipeCalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A2C224B7C2F00CAE7A4 /* RecipeCalculatorViewController.swift */; };
+		D2670A3A224B7C2F00CAE7A4 /* RecipeCalculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A2D224B7C2F00CAE7A4 /* RecipeCalculatorPresenter.swift */; };
+		D2670A3B224B7C2F00CAE7A4 /* RecipeCalculatorView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2670A2E224B7C2F00CAE7A4 /* RecipeCalculatorView.storyboard */; };
+		D2670A3C224B7C2F00CAE7A4 /* RecipeCalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A30224B7C2F00CAE7A4 /* RecipeCalculatorInteractor.swift */; };
+		D2670A3D224B7C2F00CAE7A4 /* RecipeCalculatorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A31224B7C2F00CAE7A4 /* RecipeCalculatorConfig.swift */; };
+		D2670A3E224B7C2F00CAE7A4 /* ShouldChangeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A33224B7C2F00CAE7A4 /* ShouldChangeString.swift */; };
+		D2670A3F224B7C2F00CAE7A4 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A35224B7C2F00CAE7A4 /* UIView.swift */; };
+		D2670A40224B7C2F00CAE7A4 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A36224B7C2F00CAE7A4 /* Collection.swift */; };
+		D2670A41224B7C2F00CAE7A4 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2670A37224B7C2F00CAE7A4 /* Dictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +36,22 @@
 /* Begin PBXFileReference section */
 		D2670A07224B7C0600CAE7A4 /* BreadRecipeCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreadRecipeCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2670A0A224B7C0600CAE7A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D2670A0C224B7C0600CAE7A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D2670A0F224B7C0600CAE7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2670A11224B7C0700CAE7A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2670A14224B7C0700CAE7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2670A16224B7C0700CAE7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2670A1B224B7C0700CAE7A4 /* BreadRecipeCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreadRecipeCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2670A1F224B7C0700CAE7A4 /* BreadRecipeCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadRecipeCalculatorTests.swift; sourceTree = "<group>"; };
 		D2670A21224B7C0700CAE7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2670A2B224B7C2F00CAE7A4 /* RecipeCalculatorModuleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorModuleApi.swift; sourceTree = "<group>"; };
+		D2670A2C224B7C2F00CAE7A4 /* RecipeCalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorViewController.swift; sourceTree = "<group>"; };
+		D2670A2D224B7C2F00CAE7A4 /* RecipeCalculatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorPresenter.swift; sourceTree = "<group>"; };
+		D2670A2F224B7C2F00CAE7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecipeCalculatorView.storyboard; sourceTree = "<group>"; };
+		D2670A30224B7C2F00CAE7A4 /* RecipeCalculatorInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorInteractor.swift; sourceTree = "<group>"; };
+		D2670A31224B7C2F00CAE7A4 /* RecipeCalculatorConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorConfig.swift; sourceTree = "<group>"; };
+		D2670A33224B7C2F00CAE7A4 /* ShouldChangeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShouldChangeString.swift; sourceTree = "<group>"; };
+		D2670A35224B7C2F00CAE7A4 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		D2670A36224B7C2F00CAE7A4 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		D2670A37224B7C2F00CAE7A4 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +93,9 @@
 		D2670A09224B7C0600CAE7A4 /* BreadRecipeCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				D2670A0A224B7C0600CAE7A4 /* AppDelegate.swift */,
-				D2670A0C224B7C0600CAE7A4 /* ViewController.swift */,
-				D2670A0E224B7C0600CAE7A4 /* Main.storyboard */,
-				D2670A11224B7C0700CAE7A4 /* Assets.xcassets */,
-				D2670A13224B7C0700CAE7A4 /* LaunchScreen.storyboard */,
-				D2670A16224B7C0700CAE7A4 /* Info.plist */,
+				D2670A43224B7C7500CAE7A4 /* Assets */,
+				D2670A42224B7C3A00CAE7A4 /* Source */,
+				D2670A44224B7C8600CAE7A4 /* Supporting Files */,
 			);
 			path = BreadRecipeCalculator;
 			sourceTree = "<group>";
@@ -94,6 +107,65 @@
 				D2670A21224B7C0700CAE7A4 /* Info.plist */,
 			);
 			path = BreadRecipeCalculatorTests;
+			sourceTree = "<group>";
+		};
+		D2670A2A224B7C2F00CAE7A4 /* RecipeCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A2B224B7C2F00CAE7A4 /* RecipeCalculatorModuleApi.swift */,
+				D2670A31224B7C2F00CAE7A4 /* RecipeCalculatorConfig.swift */,
+				D2670A2C224B7C2F00CAE7A4 /* RecipeCalculatorViewController.swift */,
+				D2670A2E224B7C2F00CAE7A4 /* RecipeCalculatorView.storyboard */,
+				D2670A2D224B7C2F00CAE7A4 /* RecipeCalculatorPresenter.swift */,
+				D2670A30224B7C2F00CAE7A4 /* RecipeCalculatorInteractor.swift */,
+			);
+			path = RecipeCalculator;
+			sourceTree = "<group>";
+		};
+		D2670A32224B7C2F00CAE7A4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A33224B7C2F00CAE7A4 /* ShouldChangeString.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D2670A34224B7C2F00CAE7A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A35224B7C2F00CAE7A4 /* UIView.swift */,
+				D2670A36224B7C2F00CAE7A4 /* Collection.swift */,
+				D2670A37224B7C2F00CAE7A4 /* Dictionary.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D2670A42224B7C3A00CAE7A4 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A0A224B7C0600CAE7A4 /* AppDelegate.swift */,
+				D2670A2A224B7C2F00CAE7A4 /* RecipeCalculator */,
+				D2670A34224B7C2F00CAE7A4 /* Extensions */,
+				D2670A32224B7C2F00CAE7A4 /* Utilities */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		D2670A43224B7C7500CAE7A4 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A11224B7C0700CAE7A4 /* Assets.xcassets */,
+				D2670A13224B7C0700CAE7A4 /* LaunchScreen.storyboard */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		D2670A44224B7C8600CAE7A4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D2670A16224B7C0700CAE7A4 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +251,7 @@
 			files = (
 				D2670A15224B7C0700CAE7A4 /* LaunchScreen.storyboard in Resources */,
 				D2670A12224B7C0700CAE7A4 /* Assets.xcassets in Resources */,
-				D2670A10224B7C0600CAE7A4 /* Main.storyboard in Resources */,
+				D2670A3B224B7C2F00CAE7A4 /* RecipeCalculatorView.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,8 +269,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2670A0D224B7C0600CAE7A4 /* ViewController.swift in Sources */,
+				D2670A3C224B7C2F00CAE7A4 /* RecipeCalculatorInteractor.swift in Sources */,
+				D2670A40224B7C2F00CAE7A4 /* Collection.swift in Sources */,
+				D2670A39224B7C2F00CAE7A4 /* RecipeCalculatorViewController.swift in Sources */,
+				D2670A41224B7C2F00CAE7A4 /* Dictionary.swift in Sources */,
+				D2670A3A224B7C2F00CAE7A4 /* RecipeCalculatorPresenter.swift in Sources */,
+				D2670A38224B7C2F00CAE7A4 /* RecipeCalculatorModuleApi.swift in Sources */,
+				D2670A3D224B7C2F00CAE7A4 /* RecipeCalculatorConfig.swift in Sources */,
 				D2670A0B224B7C0600CAE7A4 /* AppDelegate.swift in Sources */,
+				D2670A3F224B7C2F00CAE7A4 /* UIView.swift in Sources */,
+				D2670A3E224B7C2F00CAE7A4 /* ShouldChangeString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,20 +301,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D2670A0E224B7C0600CAE7A4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D2670A0F224B7C0600CAE7A4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D2670A13224B7C0700CAE7A4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D2670A14224B7C0700CAE7A4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D2670A2E224B7C2F00CAE7A4 /* RecipeCalculatorView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2670A2F224B7C2F00CAE7A4 /* Base */,
+			);
+			name = RecipeCalculatorView.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -362,7 +442,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 685Y94L3PT;
-				INFOPLIST_FILE = BreadRecipeCalculator/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BreadRecipeCalculator/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,7 +460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 685Y94L3PT;
-				INFOPLIST_FILE = BreadRecipeCalculator/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BreadRecipeCalculator/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
