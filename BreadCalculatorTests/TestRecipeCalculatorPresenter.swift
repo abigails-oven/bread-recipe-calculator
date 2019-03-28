@@ -28,24 +28,34 @@ class TestRecipeCalculatorPresenter: XCTestCase {
 
         self.testSubject.viewDidLoad()
 
-        // Assert setBreadType called once
-        print("Test: setBreadType is called exactly once")
-        guard (self.view.callsToSetBreadType.count == 1) else {
-            XCTFail()
+        // Assert setup methods are called exactly once
+        var calledOnce = true
+
+        calledOnce &&= self.assertCallCount(name: "setBreadType", count: self.view.callsToSetBreadType.count, expectedCount: 1)
+        calledOnce &&= self.assertCallCount(name: "hideFlourSecondary", count: self.view.callsToHideFlourSecondary.count, expectedCount: 1)
+        calledOnce &&= self.assertCallCount(name: "hideWaterStage2", count: self.view.callsToHideWaterStage2.count, expectedCount: 1)
+
+        guard calledOnce else {
             return
         }
+
+        self.assertViewCallsForBreadType()
+    }
+
+    private func assertCallCount(name: String, count: Int, expectedCount: Int) -> Bool {
+        XCTAssert(count == expectedCount, "Called \(name) \(count) times. Expected \(expectedCount).")
+        return (count == expectedCount)
+    }
+
+    private func assertViewCallsForBreadType() {
 
         let breadType = self.view.callsToSetBreadType.first!
         print("BreadType: \(breadType.debugName)")
 
-        // Assert hideFlourSecondary called once
-        print("Test hideFlourSecondary: Is called exactly once")
-        guard (self.view.callsToHideFlourSecondary.count == 1) else {
+        guard let hideFlour2 = self.view.callsToHideFlourSecondary.first else {
             XCTFail()
             return
         }
-
-        let hideFlour2 = self.view.callsToHideFlourSecondary.first!
 
         // Assert hideFlourSecondary matches setting for bread type
         print("Test hideFlourSecondary: shouldHide == \(breadType.debugName) setting (\(breadType.hideFlourSecondary))")
@@ -55,14 +65,10 @@ class TestRecipeCalculatorPresenter: XCTestCase {
         print("Test hideFlourSecondary: animated == false")
         XCTAssertFalse(hideFlour2.animated)
 
-        // Assert hideWaterStage2 called once
-        print("Test hideWaterStage2: Is called exactly once")
-        guard (self.view.callsToHideWaterStage2.count == 1) else {
+        guard let hideWater2 = self.view.callsToHideWaterStage2.first else {
             XCTFail()
             return
         }
-
-        let hideWater2 = self.view.callsToHideWaterStage2.first!
 
         // Assert hideWaterStage2 matches setting for bread type
         print("Test hideWaterStage2: shouldHide == \(breadType.debugName) setting (\(breadType.hideWaterStage2))")
