@@ -77,7 +77,7 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
         let loafCount = self.view.loafCount?.int ?? 0
         let loafWeight = self.view.loafWeight?.double ?? 0
 
-        let quantityByIngredient = self.interactor.quantityByIngredient(
+        let quantityByIngredient = self.interactor.calculateBy(
             loafCount: loafCount,
             loafWeight: loafWeight,
             percentByIngredient: percentByIngredient

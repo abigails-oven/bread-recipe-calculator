@@ -53,13 +53,16 @@ protocol RecipeCalculatorPresenterToView: class {
 
 protocol RecipeCalculatorInteractorToPresenter: class {
 
-    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Double]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Double])
-    func quantityByIngredient(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Double]) -> [IngredientType: Double]
+    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Percentage]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Quantity])
+    func calculateBy(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Percentage]) -> [IngredientType: Quantity]
 }
 
 
 // MARK: - Data Types
 
+
+typealias Percentage = Double
+typealias Quantity = Double
 
 enum BreadType: Int {
     case wheat

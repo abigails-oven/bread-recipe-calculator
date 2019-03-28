@@ -10,7 +10,7 @@ import Foundation
 
 class RecipeCalculatorInteractor: RecipeCalculatorInteractorToPresenter {
 
-    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Double]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Double]) {
+    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Percentage]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Quantity]) {
 
         let flourQuantity = flourWeight / 100
 
@@ -31,7 +31,7 @@ class RecipeCalculatorInteractor: RecipeCalculatorInteractorToPresenter {
         return (loafWeight, quantityByIngredient)
     }
 
-    func quantityByIngredient(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Double]) -> [IngredientType: Double] {
+    func calculateBy(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Percentage]) -> [IngredientType: Quantity] {
         // Sum the ingredients' percentages
         let percentSum = percentByIngredient.values.reduce(0, +)
         // Total weight == Weight of the loaves divided by the sum of the ingredients' percentages
