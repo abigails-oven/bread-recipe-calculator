@@ -32,46 +32,31 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
     // MARK: - RecipeCalculatorViewToPresenter
 
 
-    // Hide Fields
+    func setBreadType(_ breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool) {
 
-    func hideFlourSecondary(_ shouldHide: Bool, animated: Bool) {
-        self.flourSecondaryView.isHidden = shouldHide
-        if animated { self.animateLayout() }
-    }
+        let index = self.breadTypes.firstIndex(of: breadType)!
+        self.breadTypeControl.selectedSegmentIndex = index
 
-    func hideWaterStage2(_ shouldHide: Bool, animated: Bool) {
-        self.waterStage2View.isHidden = shouldHide
-        if animated { self.animateLayout() }
-    }
-
-    func hideStage2Separator(_ shouldHide: Bool, animated: Bool) {
-        self.stage2SeparatorLabel.isHidden = shouldHide
-        if animated { self.animateLayout() }
-    }
-
-    // Set Labels
-
-    func setTitle(_ title: String, animated: Bool) {
         self.titleLabel.text = title
-        if animated { self.animateLayout() }
+        self.stage2SeparatorLabel.isHidden = hideStage2Separator
+
+        _setFieldsData(fieldsData)
+
+        // Do not animate the changes
+        guard animated else {
+            self.view.layoutIfNeeded()
+            return
+        }
+
+        // Animate the changes
+        UIView.animate(withDuration: LAYOUT_ANIMATION_DURATION) {
+            self.view.layoutIfNeeded()
+        }
     }
 
-    func setFlourPrimaryName(_ name: String, animated: Bool) {
-        self.flourPrimaryLabel.text = name
-        if animated { self.animateLayout() }
+    func setFieldsData(_ fieldsData: RecipeCalculatorViewData, animated: Bool) {
+        _setFieldsData(fieldsData)
     }
-
-    func setFlourSecondaryName(_ name: String, animated: Bool) {
-        self.flourSecondaryLabel.text = name
-        if animated { self.animateLayout() }
-    }
-
-    func setWaterStage1Name(_ name: String, animated: Bool) {
-        self.waterStage1Label.text = name
-        if animated { self.animateLayout() }
-    }
-
-    // Get/Set Values
 
     var loafCount: String? {
         return self.loafCountField.text
@@ -82,40 +67,36 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
     }
 
     func quantity(for ingredient: IngredientType) -> String? {
-        return self.quantityField(for: ingredient).text
+        return self.controls(for: ingredient).quantityField.text
     }
 
     func percentage(for ingredient: IngredientType) -> String? {
-        return self.percentageField(for: ingredient).text
+        return self.controls(for: ingredient).percentageField.text
     }
 
-    func setLoafCount(_ string: String) {
-        self.loafCountField.text = string
-    }
 
-    func setLoafWeight(_ string: String) {
-        self.loafWeightField.text = string
-    }
+    // MARK: - Fields Data
 
-    func setQuantities(_ quantityByIngredient: [IngredientType : String?]) {
-        for (ingredient, quantity) in quantityByIngredient {
-            let field = self.quantityField(for: ingredient)
-            field.text = quantity
+
+    private func _setFieldsData(_ fieldsData: RecipeCalculatorViewData) {
+
+        self.loafCountField.text = fieldsData.loafCount
+        self.loafWeightField.text = fieldsData.loafWeight
+
+        for ingredient in IngredientType.all {
+
+            // Get ingredient data
+            let strings = fieldsData.ingredientStringsByType[ingredient]
+
+            // Get controls
+            let (container, label, percentageField, quantityField) = self.controls(for: ingredient)
+
+            // Update controls with data
+            container?.isHidden = (strings == nil)
+            label?.text = strings?.name
+            percentageField.text = strings?.percentage
+            quantityField.text = strings?.quantity
         }
-    }
-
-    func setPercentages(_ percentageByIngredient: [IngredientType : String?]) {
-        for (ingredient, percentage) in percentageByIngredient {
-            let field = self.percentageField(for: ingredient)
-            field.text = percentage
-        }
-    }
-
-    // Set Bread Type
-
-    func setBreadType(_ breadType: BreadType) {
-        let index = self.breadTypes.firstIndex(of: breadType)!
-        self.breadTypeControl.selectedSegmentIndex = index
     }
 
 
@@ -142,15 +123,38 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if (textField.text != self.lastFieldValue) {
-            self.presenter.viewDidChangeFieldValue()
+
+        // Do nothing if text did not change
+        guard (textField.text != self.lastFieldValue) else {
+            return
+        }
+
+        switch textField {
+        case self.loafCountField:
+            self.presenter.viewDidChangeLoafCount(textField.text)
+
+        case self.loafWeightField:
+            self.presenter.viewDidChangeLoafWeight(textField.text)
+
+        default:
+
+            guard let ingredient = self.ingredient(for: textField), let isPercentageField = self.isPercentageField(textField) else {
+                return
+            }
+
+            if isPercentageField {
+                self.presenter.viewDidChangePercentage(textField.text, for: ingredient)
+            }
+            else {
+                self.presenter.viewDidChangeQuantity(textField.text, for: ingredient)
+            }
         }
     }
 
     private var lastFieldValue: String?
 
 
-    // MARK: - Outlets
+    // MARK: - Controls
 
 
     @IBOutlet private weak var contentScrollView: UIScrollView!
@@ -202,39 +206,93 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
         self.saltField
     ]
 
+    private typealias IngredientControls = (container: UIView?, label: UILabel?, percentageField: UITextField, quantityField: UITextField)
 
-    // MARK: - UI Component for Ingredient
+    private func ingredient(for textField: UITextField) -> IngredientType? {
 
-
-    private func quantityField(for ingredient: IngredientType) -> UITextField {
-        switch ingredient {
-        case .flourPrimary:   return self.flourPrimaryField
-        case .flourSecondary: return self.flourSecondaryField
-        case .waterStage1:    return self.waterStage1Field
-        case .waterStage2:    return self.waterStage2Field
-        case .leaven:         return self.leavenField
-        case .salt:           return self.saltField
+        switch textField {
+        case self.flourPrimaryPercentageField, self.flourPrimaryField:
+            return .flourPrimary
+        case self.flourSecondaryPercentageField, self.flourSecondaryField:
+            return .flourSecondary
+        case self.waterStage1PercentageField, self.waterStage1Field:
+            return .waterStage1
+        case self.leavenPercentageField, self.leavenField:
+            return .leaven
+        case self.waterStage2PercentageField, self.waterStage2Field:
+            return .waterStage2
+        case self.saltPercentageField, self.saltField:
+            return .salt
+        default:
+            assertionFailure("This field is not supported by this method")
+            return nil
         }
     }
 
-    private func percentageField(for ingredient: IngredientType) -> UITextField {
-        switch ingredient {
-        case .flourPrimary:   return self.flourPrimaryPercentageField
-        case .flourSecondary: return self.flourSecondaryPercentageField
-        case .waterStage1:    return self.waterStage1PercentageField
-        case .waterStage2:    return self.waterStage2PercentageField
-        case .leaven:         return self.leavenPercentageField
-        case .salt:           return self.saltPercentageField
+    private func isPercentageField(_ textField: UITextField) -> Bool? {
+
+        switch textField {
+        case self.flourPrimaryPercentageField,
+             self.flourSecondaryPercentageField,
+             self.waterStage1PercentageField,
+             self.leavenPercentageField,
+             self.waterStage2PercentageField,
+             self.saltPercentageField:
+            return true
+
+        case self.flourPrimaryField,
+             self.flourSecondaryField,
+             self.waterStage1Field,
+             self.leavenField,
+             self.waterStage2Field,
+             self.saltField:
+            return false
+
+        default:
+            assertionFailure("This field is not supported by this method")
+            return nil
         }
     }
 
+    private func controls(for ingredient: IngredientType) -> IngredientControls {
 
-    // MARK: - Animate layout
-
-
-    private func animateLayout() {
-        UIView.animate(withDuration: LAYOUT_ANIMATION_DURATION) {
-            self.view.layoutIfNeeded()
+        switch ingredient {
+        case .flourPrimary: return (
+            container: nil,
+            label: self.flourPrimaryLabel,
+            percentageField: self.flourPrimaryPercentageField,
+            quantityField: self.flourPrimaryField
+            )
+        case .flourSecondary: return (
+            container: self.flourSecondaryView,
+            label: self.flourSecondaryLabel,
+            percentageField: self.flourSecondaryPercentageField,
+            quantityField: self.flourSecondaryField
+            )
+        case .waterStage1: return (
+            container: nil,
+            label: self.waterStage1Label,
+            percentageField: self.waterStage1PercentageField,
+            quantityField: self.waterStage1Field
+            )
+        case .waterStage2: return (
+            container: self.waterStage2View,
+            label: nil,
+            percentageField: self.waterStage2PercentageField,
+            quantityField: self.waterStage2Field
+            )
+        case .leaven: return (
+            container: nil,
+            label: nil,
+            percentageField: self.leavenPercentageField,
+            quantityField: self.leavenField
+            )
+        case .salt: return (
+            container: nil,
+            label: nil,
+            percentageField: self.saltPercentageField,
+            quantityField: self.saltField
+            )
         }
     }
 

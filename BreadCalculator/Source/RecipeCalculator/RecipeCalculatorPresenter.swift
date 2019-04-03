@@ -26,19 +26,38 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
 
 
     func viewDidLoad() {
-        self.view.setBreadType(self.breadType)
         self.updateViewForBreadType(animated: false)
-        self.updateViewForLoafCountAndWeight()
-    }
-
-    func viewDidChangeFieldValue() {
-        self.updateViewForLoafCountAndWeight()
     }
 
     func viewDidChangeBreadType(_ breadType: BreadType) {
 
         self.breadType = breadType
         self.updateViewForBreadType(animated: true)
+    }
+
+    func viewDidChangeLoafCount(_ loafCountString: String?) {
+        if let loafCount = loafCountString?.int {
+            self.interactor.saveLoafCount(loafCount, for: self.breadType)
+            self.updateViewForFieldsData(animated: true)
+        }
+    }
+
+    func viewDidChangeLoafWeight(_ loafWeightString: String?) {
+        if let loafWeight = loafWeightString?.double {
+            self.interactor.saveLoafWeight(loafWeight, for: breadType)
+            self.updateViewForFieldsData(animated: true)
+        }
+    }
+
+    func viewDidChangePercentage(_ percentageString: String?, for ingredient: IngredientType) {
+        if let percentage = percentageString?.double {
+            self.interactor.savePercentage(percentage, for: ingredient, for: self.breadType)
+            self.updateViewForFieldsData(animated: true)
+        }
+    }
+
+    func viewDidChangeQuantity(_ percentage: String?, for ingredient: IngredientType) {
+        print("ERROR: Unsupported")
     }
 
 
@@ -49,43 +68,41 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
 
     private func updateViewForBreadType(animated: Bool) {
 
-        self.view.setTitle(self.breadType.title, animated: animated)
+        let breadType = self.breadType
 
-        self.view.setFlourPrimaryName(self.breadType.nameForFlourPrimary, animated: animated)
-        self.view.setFlourSecondaryName(self.breadType.nameForFlourSecondary, animated: animated)
-        self.view.setWaterStage1Name(self.breadType.nameForWaterStage1, animated: animated)
-
-        self.view.hideFlourSecondary(self.breadType.hideFlourSecondary, animated: animated)
-        self.view.hideStage2Separator(self.breadType.hideStage2Separator, animated: animated)
-        self.view.hideWaterStage2(self.breadType.hideWaterStage2, animated: animated)
+        self.view.setBreadType(
+            breadType,
+            title: breadType.title,
+            hideStage2Separator: breadType.hideStage2Separator,
+            fieldsData: self.genFieldsData(),
+            animated: animated
+        )
     }
 
+    private func updateViewForFieldsData(animated: Bool) {
 
-    // MARK: - Loaf Count/Weight
+        self.view.setFieldsData(self.genFieldsData(), animated: animated)
+    }
 
+    private func genFieldsData() -> RecipeCalculatorViewData {
 
-    private func updateViewForLoafCountAndWeight() {
+        let data = self.interactor.data(for: self.breadType)
 
-        let ingredients = self.breadType.ingredients
+        typealias Strings = RecipeCalculatorViewData.IngredientStrings
+        let valuesByType = data.ingredientValuesByType
 
-        let percentByIngredient = ingredients.dictionary{ ingredient -> (IngredientType, Double) in
-            let string = self.view.percentage(for: ingredient)
-            let percentage = string?.double ?? 0
-            return (ingredient, percentage)
+        let stringsByType: [IngredientType: Strings] = valuesByType.mapValuesWithKey{ (ingredient, values) in
+            let name = self.breadType.name(for: ingredient)
+            let percentageString = values.percentage.formatted
+            let quantityString = values.quantity.formatted
+            return (name: name, percentage: percentageString, quantity: quantityString)
         }
 
-        let loafCount = self.view.loafCount?.int ?? 0
-        let loafWeight = self.view.loafWeight?.double ?? 0
-
-        let quantityByIngredient = self.interactor.calculateBy(
-            loafCount: loafCount,
-            loafWeight: loafWeight,
-            percentByIngredient: percentByIngredient
+        return .init(
+            loafCount: data.loafCount.formatted,
+            loafWeight: data.loafWeight.formatted,
+            ingredientStringsByType: stringsByType
         )
-
-        let quantityStringByIngredient = quantityByIngredient.mapValues{ String(format: "%.2f", $0) }
-
-        self.view.setQuantities(quantityStringByIngredient)
     }
 }
 
@@ -93,57 +110,12 @@ private extension BreadType {
 
     static let `default`: BreadType = .wheat
 
-    var ingredients: Set<IngredientType> {
-        switch self {
-        case .wheat: return [.flourPrimary, .waterStage1, .waterStage2, .leaven, .salt]
-        case .kamut: return [.flourPrimary, .waterStage1, .waterStage2, .leaven, .salt]
-        case .sourdough: return [.flourPrimary, .flourSecondary, .waterStage1, .waterStage2, .leaven, .salt]
-        case .bran: return [.flourPrimary, .waterStage1, .leaven, .salt]
-        }
-    }
-
     var title: String {
         switch self {
         case .wheat: return NSLocalizedString("Naturally Leavened Wheat", comment: "")
         case .kamut: return NSLocalizedString("Naturally Leavened Kamut", comment: "")
         case .sourdough: return NSLocalizedString("White Sourdough", comment: "")
         case .bran: return NSLocalizedString("Bran Dough", comment: "")
-        }
-    }
-
-    var nameForFlourPrimary: String {
-        switch self {
-        case .wheat: return NSLocalizedString("Sifted Wheat Flour", comment: "")
-        case .kamut: return NSLocalizedString("Kamut Flour", comment: "")
-        case .sourdough: return NSLocalizedString("Wheat Flour", comment: "")
-        case .bran: return NSLocalizedString("Bran Flour", comment: "")
-        }
-    }
-
-    var nameForFlourSecondary: String {
-        switch self {
-        case .wheat, .kamut, .bran:
-            return ""
-        case .sourdough:
-            return NSLocalizedString("White Flour", comment: "")
-        }
-    }
-
-    var nameForWaterStage1: String {
-        switch self {
-        case .wheat, .kamut, .sourdough:
-            return NSLocalizedString("Water (Stage 1)", comment: "")
-        case .bran:
-            return NSLocalizedString("Water", comment: "")
-        }
-    }
-
-    var hideFlourSecondary: Bool {
-        switch self {
-        case .wheat, .kamut, .bran:
-            return true
-        case .sourdough:
-            return false
         }
     }
 
@@ -156,19 +128,74 @@ private extension BreadType {
         }
     }
 
-    var hideWaterStage2: Bool {
+    func name(for ingredient: IngredientType) -> String {
+
+        // Return ingredient name specific for the BreadType
+        switch ingredient {
+        case .flourPrimary:
+            switch self {
+            case .wheat: return NSLocalizedString("Sifted Wheat Flour", comment: "")
+            case .kamut: return NSLocalizedString("Kamut Flour", comment: "")
+            case .sourdough: return NSLocalizedString("White Flour", comment: "")
+            case .bran: return NSLocalizedString("Bran Flour", comment: "")
+            }
+
+        case .flourSecondary:
+            if (self == .sourdough) {
+                return NSLocalizedString("Wheat Flour", comment: "")
+            }
+
+        case .waterStage1:
+            if (self == .bran) {
+                return NSLocalizedString("Water", comment: "")
+            }
+
+        case .waterStage2, .leaven, .salt:
+            break
+        }
+
+        return ingredient.defaultName
+    }
+}
+
+private extension IngredientType {
+
+    var defaultName: String {
         switch self {
-        case .wheat, .kamut, .sourdough:
-            return false
-        case .bran:
-            return true
+        case .flourPrimary: return NSLocalizedString("Flour", comment: "")
+        case .flourSecondary: return NSLocalizedString("Flour 2", comment: "")
+        case .waterStage1: return NSLocalizedString("Water (Stage 1)", comment: "")
+        case .waterStage2: return NSLocalizedString("Water (Stage 2)", comment: "")
+        case .leaven: return NSLocalizedString("Leaven", comment: "")
+        case .salt: return NSLocalizedString("Salt", comment: "")
         }
     }
 }
 
 
-// MARK: - Number to string conversion
+// MARK: - Number/String conversion
 
+
+private extension Double {
+
+    var formatted: String {
+        if (self < 10) {
+            return String(format: "%.2f", self)
+        }
+        else if (self < 100) {
+            return String(format: "%.1f", self)
+        }
+
+        return String(format: "%.0f", self)
+    }
+}
+
+private extension Int {
+
+    var formatted: String {
+        return "\(self)"
+    }
+}
 
 private extension String {
 
@@ -180,10 +207,3 @@ private extension String {
         return Int(self)
     }
 }
-
-
-// MARK: - Defaults
-
-
-private let DEFAULT_LOAF_COUNT: Int = 2
-private let DEFAULT_LOAF_WEIGHT: Double = 2

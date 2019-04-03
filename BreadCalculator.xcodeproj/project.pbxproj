@@ -24,6 +24,7 @@
 		D22BCE3C224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE3B224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift */; };
 		D22BCE3E224BF305006A0721 /* MockRecipeCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE3D224BF305006A0721 /* MockRecipeCalculatorView.swift */; };
 		D22BCE58224D2AEF006A0721 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE57224D2AEF006A0721 /* Bool.swift */; };
+		D2E823582252CE22009F90C0 /* RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E823572252CE22009F90C0 /* RawRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		D22BCE3B224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeCalculatorInteractor.swift; sourceTree = "<group>"; };
 		D22BCE3D224BF305006A0721 /* MockRecipeCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeCalculatorView.swift; sourceTree = "<group>"; };
 		D22BCE57224D2AEF006A0721 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		D2E823572252CE22009F90C0 /* RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				D22BCE57224D2AEF006A0721 /* Bool.swift */,
 				D22BCE2C224BE1DE006A0721 /* Collection.swift */,
 				D22BCE2D224BE1DE006A0721 /* Dictionary.swift */,
+				D2E823572252CE22009F90C0 /* RawRepresentable.swift */,
 				D22BCE2B224BE1DE006A0721 /* UIView.swift */,
 			);
 			path = Extensions;
@@ -281,6 +284,7 @@
 				D22BCE2F224BE1DF006A0721 /* RecipeCalculatorModuleApi.swift in Sources */,
 				D22BCE36224BE1DF006A0721 /* Collection.swift in Sources */,
 				D22BCE2E224BE1DF006A0721 /* ShouldChangeString.swift in Sources */,
+				D2E823582252CE22009F90C0 /* RawRepresentable.swift in Sources */,
 				D22BCE30224BE1DF006A0721 /* RecipeCalculatorViewController.swift in Sources */,
 				D22BCE58224D2AEF006A0721 /* Bool.swift in Sources */,
 				D22BCE37224BE1DF006A0721 /* Dictionary.swift in Sources */,

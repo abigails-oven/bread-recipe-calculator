@@ -13,27 +13,15 @@ import Foundation
 
 
 protocol RecipeCalculatorViewToPresenter: class {
+    func setBreadType(_ breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool)
+    func setFieldsData(_ fieldData: RecipeCalculatorViewData, animated: Bool)
+}
 
-    func hideFlourSecondary(_ shouldHide: Bool, animated: Bool)
-    func hideWaterStage2(_ shouldHide: Bool, animated: Bool)
-    func hideStage2Separator(_ shouldHide: Bool, animated: Bool)
-
-    func setTitle(_ title: String, animated: Bool)
-    func setFlourPrimaryName(_ name: String, animated: Bool)
-    func setFlourSecondaryName(_ name: String, animated: Bool)
-    func setWaterStage1Name(_ name: String, animated: Bool)
-
-    func setLoafCount(_ string: String)
-    func setLoafWeight(_ string: String)
-    func setQuantities(_ quantityByIngredient: [IngredientType: String?])
-    func setPercentages(_ percentageByIngredient: [IngredientType: String?])
-
-    var loafCount: String? { get }
-    var loafWeight: String? { get }
-    func quantity(for ingredient: IngredientType) -> String?
-    func percentage(for ingredient: IngredientType) -> String?
-
-    func setBreadType(_ breadType: BreadType)
+struct RecipeCalculatorViewData {
+    let loafCount: String
+    let loafWeight: String
+    let ingredientStringsByType: [IngredientType: IngredientStrings]
+    typealias IngredientStrings = (name: String, percentage: String, quantity: String)
 }
 
 
@@ -41,10 +29,12 @@ protocol RecipeCalculatorViewToPresenter: class {
 
 
 protocol RecipeCalculatorPresenterToView: class {
-
     func viewDidLoad()
-    func viewDidChangeFieldValue()
     func viewDidChangeBreadType(_ breadType: BreadType)
+    func viewDidChangeLoafCount(_ loafCount: String?)
+    func viewDidChangeLoafWeight(_ loafWeight: String?)
+    func viewDidChangePercentage(_ percentage: String?, for ingredient: IngredientType)
+    func viewDidChangeQuantity(_ percentage: String?, for ingredient: IngredientType)
 }
 
 
@@ -52,24 +42,34 @@ protocol RecipeCalculatorPresenterToView: class {
 
 
 protocol RecipeCalculatorInteractorToPresenter: class {
+    func data(for breadType: BreadType) -> RecipeCalculatorData
+    func saveLoafCount(_ loafCount: Int, for breadType: BreadType)
+    func saveLoafWeight(_ loafWeight: Double, for breadType: BreadType)
+    func savePercentage(_ percentage: Percentage, for ingredient: IngredientType, for breadType: BreadType)
+}
 
-    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Percentage]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Quantity])
-    func calculateBy(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Percentage]) -> [IngredientType: Quantity]
+struct RecipeCalculatorData {
+    let loafCount: Int
+    let loafWeight: Double
+    let ingredientValuesByType: [IngredientType: IngredientValues]
+    typealias IngredientValues = (percentage: Percentage, quantity: Quantity)
 }
 
 
 // MARK: - Data Types
 
 
-typealias Percentage = Double
-typealias Quantity = Double
-
 enum BreadType: Int {
     case wheat
     case kamut
     case sourdough
     case bran
+
+    static let all: [BreadType] = BreadType.generateAllSequentialCases()
 }
+
+typealias Percentage = Double
+typealias Quantity = Double
 
 enum IngredientType: Int {
     case flourPrimary
@@ -78,4 +78,6 @@ enum IngredientType: Int {
     case waterStage2
     case leaven
     case salt
+
+    static let all: [IngredientType] = IngredientType.generateAllSequentialCases()
 }
