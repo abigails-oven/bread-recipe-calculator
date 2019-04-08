@@ -18,13 +18,18 @@
 		D22BCE32224BE1DF006A0721 /* RecipeCalculatorView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D22BCE26224BE1DE006A0721 /* RecipeCalculatorView.storyboard */; };
 		D22BCE33224BE1DF006A0721 /* RecipeCalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE28224BE1DE006A0721 /* RecipeCalculatorInteractor.swift */; };
 		D22BCE34224BE1DF006A0721 /* RecipeCalculatorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE29224BE1DE006A0721 /* RecipeCalculatorConfig.swift */; };
-		D22BCE35224BE1DF006A0721 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE2B224BE1DE006A0721 /* UIView.swift */; };
-		D22BCE36224BE1DF006A0721 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE2C224BE1DE006A0721 /* Collection.swift */; };
-		D22BCE37224BE1DF006A0721 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE2D224BE1DE006A0721 /* Dictionary.swift */; };
 		D22BCE3C224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE3B224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift */; };
 		D22BCE3E224BF305006A0721 /* MockRecipeCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE3D224BF305006A0721 /* MockRecipeCalculatorView.swift */; };
-		D22BCE58224D2AEF006A0721 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE57224D2AEF006A0721 /* Bool.swift */; };
-		D2E823582252CE22009F90C0 /* RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E823572252CE22009F90C0 /* RawRepresentable.swift */; };
+		D230FA71225BB5A100979A8F /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA70225BB5A100979A8F /* AlertData.swift */; };
+		D230FA73225BB7CC00979A8F /* UIAlertController+AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA72225BB7CC00979A8F /* UIAlertController+AlertData.swift */; };
+		D230FA75225BCD2A00979A8F /* RecipeCalculatorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA74225BCD2A00979A8F /* RecipeCalculatorRouter.swift */; };
+		D230FA77225BE2C500979A8F /* MockRecipeCalculatorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA76225BE2C500979A8F /* MockRecipeCalculatorRouter.swift */; };
+		D230FA93225BED6A00979A8F /* Bool+InfixOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA8B225BED6A00979A8F /* Bool+InfixOps.swift */; };
+		D230FA94225BED6A00979A8F /* UIView+FirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA8C225BED6A00979A8F /* UIView+FirstResponder.swift */; };
+		D230FA95225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA8D225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift */; };
+		D230FA96225BED6A00979A8F /* Dictionary+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA8E225BED6A00979A8F /* Dictionary+Map.swift */; };
+		D230FA97225BED6A00979A8F /* Collection+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA8F225BED6A00979A8F /* Collection+Dictionary.swift */; };
+		D230FA9A225BED6A00979A8F /* NotEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = D230FA92225BED6A00979A8F /* NotEmpty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,13 +58,18 @@
 		D22BCE27224BE1DE006A0721 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecipeCalculatorView.storyboard; sourceTree = "<group>"; };
 		D22BCE28224BE1DE006A0721 /* RecipeCalculatorInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorInteractor.swift; sourceTree = "<group>"; };
 		D22BCE29224BE1DE006A0721 /* RecipeCalculatorConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorConfig.swift; sourceTree = "<group>"; };
-		D22BCE2B224BE1DE006A0721 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		D22BCE2C224BE1DE006A0721 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		D22BCE2D224BE1DE006A0721 /* Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		D22BCE3B224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeCalculatorInteractor.swift; sourceTree = "<group>"; };
 		D22BCE3D224BF305006A0721 /* MockRecipeCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeCalculatorView.swift; sourceTree = "<group>"; };
-		D22BCE57224D2AEF006A0721 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
-		D2E823572252CE22009F90C0 /* RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawRepresentable.swift; sourceTree = "<group>"; };
+		D230FA70225BB5A100979A8F /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
+		D230FA72225BB7CC00979A8F /* UIAlertController+AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+AlertData.swift"; sourceTree = "<group>"; };
+		D230FA74225BCD2A00979A8F /* RecipeCalculatorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorRouter.swift; sourceTree = "<group>"; };
+		D230FA76225BE2C500979A8F /* MockRecipeCalculatorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipeCalculatorRouter.swift; sourceTree = "<group>"; };
+		D230FA8B225BED6A00979A8F /* Bool+InfixOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool+InfixOps.swift"; sourceTree = "<group>"; };
+		D230FA8C225BED6A00979A8F /* UIView+FirstResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+FirstResponder.swift"; sourceTree = "<group>"; };
+		D230FA8D225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RawRepresentable+Int+AllCases.swift"; sourceTree = "<group>"; };
+		D230FA8E225BED6A00979A8F /* Dictionary+Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Map.swift"; sourceTree = "<group>"; };
+		D230FA8F225BED6A00979A8F /* Collection+Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Dictionary.swift"; sourceTree = "<group>"; };
+		D230FA92225BED6A00979A8F /* NotEmpty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotEmpty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +124,7 @@
 				D22BCE15224BE1C9006A0721 /* TestRecipeCalculatorPresenter.swift */,
 				D22BCE3D224BF305006A0721 /* MockRecipeCalculatorView.swift */,
 				D22BCE3B224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift */,
+				D230FA76225BE2C500979A8F /* MockRecipeCalculatorRouter.swift */,
 				D22BCE17224BE1C9006A0721 /* Info.plist */,
 			);
 			path = BreadCalculatorTests;
@@ -123,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				D22BCE21224BE1DE006A0721 /* ShouldChangeString.swift */,
+				D230FA70225BB5A100979A8F /* AlertData.swift */,
+				D230FA72225BB7CC00979A8F /* UIAlertController+AlertData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -136,6 +149,7 @@
 				D22BCE26224BE1DE006A0721 /* RecipeCalculatorView.storyboard */,
 				D22BCE25224BE1DE006A0721 /* RecipeCalculatorPresenter.swift */,
 				D22BCE28224BE1DE006A0721 /* RecipeCalculatorInteractor.swift */,
+				D230FA74225BCD2A00979A8F /* RecipeCalculatorRouter.swift */,
 			);
 			path = RecipeCalculator;
 			sourceTree = "<group>";
@@ -143,11 +157,12 @@
 		D22BCE2A224BE1DE006A0721 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D22BCE57224D2AEF006A0721 /* Bool.swift */,
-				D22BCE2C224BE1DE006A0721 /* Collection.swift */,
-				D22BCE2D224BE1DE006A0721 /* Dictionary.swift */,
-				D2E823572252CE22009F90C0 /* RawRepresentable.swift */,
-				D22BCE2B224BE1DE006A0721 /* UIView.swift */,
+				D230FA8B225BED6A00979A8F /* Bool+InfixOps.swift */,
+				D230FA8F225BED6A00979A8F /* Collection+Dictionary.swift */,
+				D230FA8E225BED6A00979A8F /* Dictionary+Map.swift */,
+				D230FA92225BED6A00979A8F /* NotEmpty.swift */,
+				D230FA8D225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift */,
+				D230FA8C225BED6A00979A8F /* UIView+FirstResponder.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,16 +299,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D22BCE2F224BE1DF006A0721 /* RecipeCalculatorModuleApi.swift in Sources */,
-				D22BCE36224BE1DF006A0721 /* Collection.swift in Sources */,
 				D22BCE2E224BE1DF006A0721 /* ShouldChangeString.swift in Sources */,
-				D2E823582252CE22009F90C0 /* RawRepresentable.swift in Sources */,
 				D22BCE30224BE1DF006A0721 /* RecipeCalculatorViewController.swift in Sources */,
-				D22BCE58224D2AEF006A0721 /* Bool.swift in Sources */,
-				D22BCE37224BE1DF006A0721 /* Dictionary.swift in Sources */,
+				D230FA75225BCD2A00979A8F /* RecipeCalculatorRouter.swift in Sources */,
+				D230FA96225BED6A00979A8F /* Dictionary+Map.swift in Sources */,
+				D230FA73225BB7CC00979A8F /* UIAlertController+AlertData.swift in Sources */,
+				D230FA93225BED6A00979A8F /* Bool+InfixOps.swift in Sources */,
+				D230FA97225BED6A00979A8F /* Collection+Dictionary.swift in Sources */,
 				D22BCE33224BE1DF006A0721 /* RecipeCalculatorInteractor.swift in Sources */,
 				D22BCE31224BE1DF006A0721 /* RecipeCalculatorPresenter.swift in Sources */,
+				D230FA9A225BED6A00979A8F /* NotEmpty.swift in Sources */,
+				D230FA94225BED6A00979A8F /* UIView+FirstResponder.swift in Sources */,
+				D230FA95225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift in Sources */,
 				D22BCE01224BE1C8006A0721 /* AppDelegate.swift in Sources */,
-				D22BCE35224BE1DF006A0721 /* UIView.swift in Sources */,
+				D230FA71225BB5A100979A8F /* AlertData.swift in Sources */,
 				D22BCE34224BE1DF006A0721 /* RecipeCalculatorConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D230FA77225BE2C500979A8F /* MockRecipeCalculatorRouter.swift in Sources */,
 				D22BCE3C224BE62F006A0721 /* MockRecipeCalculatorInteractor.swift in Sources */,
 				D22BCE3E224BF305006A0721 /* MockRecipeCalculatorView.swift in Sources */,
 				D22BCE16224BE1C9006A0721 /* TestRecipeCalculatorPresenter.swift in Sources */,

@@ -12,13 +12,15 @@ import XCTest
 class TestRecipeCalculatorPresenter: XCTestCase {
 
     private var testSubject: RecipeCalculatorPresenterToView!
-    private var interactor: MockRecipeCalculatorInteractor!
     private var view: MockRecipeCalculatorView!
+    private var interactor: MockRecipeCalculatorInteractor!
+    private var router: MockRecipeCalculatorRouter!
 
     override func setUp() {
         self.view = MockRecipeCalculatorView()
         self.interactor = MockRecipeCalculatorInteractor()
-        self.testSubject = RecipeCalculatorPresenter(self.view, self.interactor)
+        self.router = MockRecipeCalculatorRouter()
+        self.testSubject = RecipeCalculatorPresenter(self.view, self.interactor, self.router)
     }
 
     // No tear down necessary

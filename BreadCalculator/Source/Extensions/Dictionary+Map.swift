@@ -1,6 +1,6 @@
 //
-//  Dictionary.swift
-//  BreadCalculator
+//  Dictionary+Map.swift
+//
 //
 //  Created by Scott Levie on 3/26/19.
 //  Copyright © 2019 Scott Levie. All rights reserved.
@@ -26,7 +26,7 @@ extension Dictionary {
         }
     }
 
-    public func flatMapKeyValues<NewKey: Hashable, NewValue>(_ transform: ((Key, Value) throws -> (NewKey?, NewValue?))) rethrows -> [NewKey: NewValue] {
+    public func compactMapKeyValues<NewKey: Hashable, NewValue>(_ transform: ((Key, Value) throws -> (NewKey?, NewValue?))) rethrows -> [NewKey: NewValue] {
 
         return try self.reduce(into: [:]) { (result, keyValue) in
             let (key, value) = keyValue

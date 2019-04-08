@@ -15,7 +15,9 @@ struct RecipeCalculatorConfig {
 
         let interactor = RecipeCalculatorInteractor()
 
-        let presenter = RecipeCalculatorPresenter(view, interactor)
+        let router = RecipeCalculatorRouter(view)
+
+        let presenter = RecipeCalculatorPresenter(view, interactor, router)
 
         view.presenter = presenter
     }

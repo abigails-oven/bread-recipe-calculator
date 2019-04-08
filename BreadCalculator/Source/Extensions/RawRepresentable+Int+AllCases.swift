@@ -1,6 +1,6 @@
 //
-//  RawRepresentable.swift
-//  BreadCalculator
+//  RawRepresentable+Int+AllCases.swift
+//
 //
 //  Created by Scott Levie on 4/1/19.
 //  Copyright © 2019 Scott Levie. All rights reserved.

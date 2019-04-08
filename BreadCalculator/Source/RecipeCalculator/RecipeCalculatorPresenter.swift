@@ -13,13 +13,15 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
     // MARK: - Init
 
 
-    init(_ view: RecipeCalculatorViewToPresenter, _ interactor: RecipeCalculatorInteractorToPresenter) {
+    init(_ view: RecipeCalculatorViewToPresenter, _ interactor: RecipeCalculatorInteractorToPresenter, _ router: RecipeCalculatorRouterToPresenter) {
         self.view = view
         self.interactor = interactor
+        self.router = router
     }
 
     private weak var view: RecipeCalculatorViewToPresenter!
     private let interactor: RecipeCalculatorInteractorToPresenter
+    private let router: RecipeCalculatorRouterToPresenter
 
 
     // MARK: - RecipeCalculatorPresenterToView
@@ -38,28 +40,71 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
     }
 
     func viewDidChangeLoafCount(_ loafCountString: String?) {
-        if let loafCount = loafCountString?.int {
-            self.interactor.saveLoafCount(loafCount, for: self.breadType)
-            self.updateViewForFieldsData(animated: true)
-        }
+
+        self.didChangeField(
+            name: LocalizedStrings.Field.loafCountName,
+            value: loafCountString,
+            asNumber: { $0.int },
+            save: { self.interactor.saveLoafCount($0 ?? 0, for: self.breadType) }
+        )
     }
 
     func viewDidChangeLoafWeight(_ loafWeightString: String?) {
-        if let loafWeight = loafWeightString?.double {
-            self.interactor.saveLoafWeight(loafWeight, for: breadType)
-            self.updateViewForFieldsData(animated: true)
-        }
+
+        self.didChangeField(
+            name: LocalizedStrings.Field.loafWeightName,
+            value: loafWeightString,
+            asNumber: { $0.double },
+            save: { self.interactor.saveLoafWeight($0 ?? 0, for: breadType) }
+        )
     }
 
     func viewDidChangePercentage(_ percentageString: String?, for ingredient: IngredientType) {
-        if let percentage = percentageString?.double {
-            self.interactor.savePercentage(percentage, for: ingredient, for: self.breadType)
-            self.updateViewForFieldsData(animated: true)
-        }
+
+        // Get a localized name for the field
+        let ingredientName = self.breadType.name(for: ingredient)
+        let fieldName = NSLocalizedString("\(ingredientName) Percentage", comment: "")
+
+        self.didChangeField(
+            name: fieldName,
+            value: percentageString,
+            asNumber: { $0.double },
+            save: { self.interactor.savePercentage($0 ?? 0, for: ingredient, for: self.breadType) }
+        )
     }
 
     func viewDidChangeQuantity(_ percentage: String?, for ingredient: IngredientType) {
         print("ERROR: Unsupported")
+    }
+
+
+    // MARK: - Did Change Field
+
+
+    private func didChangeField<T: Numeric>(name: String, value: String?, asNumber: (String)->T?, save: (T?)->Void) {
+
+        // Attempt to convert the given string to a number
+        if let value = value?.notEmpty, let number = asNumber(value) {
+            // Save the number and update the fields
+            save(number)
+            self.updateViewForFieldsData(animated: true)
+            return
+        }
+
+        // If the given string cannot be converted to a number Do not overwrite the saved number
+
+        let title = NSLocalizedString("Not a Number", comment: "")
+        let message = NSLocalizedString("The value for \(name) must be a number.", comment: "")
+
+        // Present an alert and reset the number field
+        self.router.presentAlert(.init(
+            title: title,
+            message: message,
+            cancelHandler: { [weak self] in
+                // Update the fields with the previously saved values
+                self?.updateViewForFieldsData(animated: true)
+            }
+        ))
     }
 
 
@@ -81,9 +126,9 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
         )
     }
 
-    private func updateViewForFieldsData(animated: Bool) {
-
-        self.view.setFieldsData(self.generateFieldsData(), animated: animated)
+    func updateViewForFieldsData(animated: Bool) {
+        let fieldsData = self.generateFieldsData()
+        self.view.setFieldsData(fieldsData, animated: animated)
     }
 
     private func generateFieldsData() -> RecipeCalculatorViewData {
@@ -207,5 +252,18 @@ private extension String {
 
     var int: Int? {
         return Int(self)
+    }
+}
+
+
+// MARK: - Localized Strings
+
+
+private struct LocalizedStrings {
+
+    struct Field {
+        static let loafCountName = NSLocalizedString("Loaves", comment: "The default name for the 'Loaves' text field")
+        static let loafWeightName = NSLocalizedString("Loaf Weight", comment: "The default name for the 'Loaf Weight' text field")
+        static let emptyValue = NSLocalizedString("empty", comment: "Represents a text field value that is empty")
     }
 }

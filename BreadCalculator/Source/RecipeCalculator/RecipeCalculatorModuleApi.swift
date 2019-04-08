@@ -57,6 +57,14 @@ struct RecipeCalculatorData {
 }
 
 
+// MARK: - Router
+
+
+protocol RecipeCalculatorRouterToPresenter: class {
+    func presentAlert(_ data: AlertData)
+}
+
+
 // MARK: - Data Types
 
 
