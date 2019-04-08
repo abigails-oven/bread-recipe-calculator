@@ -32,6 +32,13 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
     // MARK: - RecipeCalculatorViewToPresenter
 
 
+    func endEditingField() {
+        if let textField = self.view.firstResponder as? UITextField {
+            self.textFieldDidEndEditing(textField)
+            textField.resignFirstResponder()
+        }
+    }
+
     func setBreadType(_ breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool) {
 
         let index = self.breadTypes.firstIndex(of: breadType)!

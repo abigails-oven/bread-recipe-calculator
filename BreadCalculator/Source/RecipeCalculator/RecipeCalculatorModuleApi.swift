@@ -13,6 +13,7 @@ import Foundation
 
 
 protocol RecipeCalculatorViewToPresenter: class {
+    func endEditingField()
     func setBreadType(_ breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool)
     func setFieldsData(_ fieldData: RecipeCalculatorViewData, animated: Bool)
 }

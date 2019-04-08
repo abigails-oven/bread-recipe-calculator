@@ -31,6 +31,8 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
 
     func viewDidChangeBreadType(_ breadType: BreadType) {
 
+        self.view.endEditingField()
+
         self.breadType = breadType
         self.updateViewForBreadType(animated: true)
     }
