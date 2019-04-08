@@ -74,17 +74,17 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
             breadType,
             title: breadType.title,
             hideStage2Separator: breadType.hideStage2Separator,
-            fieldsData: self.genFieldsData(),
+            fieldsData: self.generateFieldsData(),
             animated: animated
         )
     }
 
     private func updateViewForFieldsData(animated: Bool) {
 
-        self.view.setFieldsData(self.genFieldsData(), animated: animated)
+        self.view.setFieldsData(self.generateFieldsData(), animated: animated)
     }
 
-    private func genFieldsData() -> RecipeCalculatorViewData {
+    private func generateFieldsData() -> RecipeCalculatorViewData {
 
         let data = self.interactor.data(for: self.breadType)
 
