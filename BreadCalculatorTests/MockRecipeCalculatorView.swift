@@ -12,85 +12,29 @@ import Foundation
 
 class MockRecipeCalculatorView: RecipeCalculatorViewToPresenter {
 
-    typealias SetHiddenParams = (shouldHide: Bool, animated: Bool)
-    typealias SetStringParams = (string: String, animated: Bool)
-
-    private(set) var callsToHideFlourSecondary: [SetHiddenParams] = []
-    private(set) var callsToHideWaterStage2: [SetHiddenParams] = []
-    private(set) var callsToHideStage2Separator: [SetHiddenParams] = []
-    private(set) var callsToSetTitle: [SetStringParams] = []
-    private(set) var callsToSetFlourPrimaryName: [SetStringParams] = []
-    private(set) var callsToSetFlourSecondaryName: [SetStringParams] = []
-    private(set) var callsToSetWaterStage1Name: [SetStringParams] = []
-    private(set) var callsToSetLoafCount: [String] = []
-    private(set) var callsToSetLoafWeight: [String] = []
-    private(set) var callsToSetQuantities: [[IngredientType: String?]] = []
-    private(set) var callsToSetPercentages: [[IngredientType: String?]] = []
-    private(set) var callsToSetBreadType: [BreadType] = []
-
-
     // MARK: - RecipeCalculatorViewToPresenter
 
 
-    func hideFlourSecondary(_ shouldHide: Bool, animated: Bool) {
-        self.callsToHideFlourSecondary.append((shouldHide: shouldHide, animated: animated))
+    func setBreadType(_ breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool) {
+        self.calls.setBreadType.append((breadType, title, hideStage2Separator, fieldsData, animated))
     }
 
-    func hideWaterStage2(_ shouldHide: Bool, animated: Bool) {
-        self.callsToHideWaterStage2.append((shouldHide: shouldHide, animated: animated))
+    func setFieldsData(_ fieldData: RecipeCalculatorViewData, animated: Bool) {
+        self.calls.setFieldsData.append((fieldData, animated))
     }
 
-    func hideStage2Separator(_ shouldHide: Bool, animated: Bool) {
-        self.callsToHideStage2Separator.append((shouldHide: shouldHide, animated: animated))
-    }
 
-    func setTitle(_ title: String, animated: Bool) {
-        self.callsToSetTitle.append((title, animated))
-    }
+    // MARK: - Mock Function Calls
 
-    func setFlourPrimaryName(_ name: String, animated: Bool) {
-        self.callsToSetFlourPrimaryName.append((name, animated))
-    }
 
-    func setFlourSecondaryName(_ name: String, animated: Bool) {
-        self.callsToSetFlourSecondaryName.append((name, animated))
-    }
+    private(set) var calls: Calls = .init()
 
-    func setWaterStage1Name(_ name: String, animated: Bool) {
-        self.callsToSetWaterStage1Name.append((name, animated))
-    }
+    struct Calls {
 
-    func setLoafCount(_ string: String) {
-        self.loafCount = string
-        self.callsToSetLoafCount.append(string)
-    }
+        typealias SetBreadType = (breadType: BreadType, title: String, hideStage2Separator: Bool, fieldsData: RecipeCalculatorViewData, animated: Bool)
+        typealias SetFieldsData = (fieldData: RecipeCalculatorViewData, animated: Bool)
 
-    func setLoafWeight(_ string: String) {
-        self.loafWeight = string
-        self.callsToSetLoafWeight.append(string)
-    }
-
-    func setQuantities(_ quantityByIngredient: [IngredientType : String?]) {
-        self.callsToSetQuantities.append(quantityByIngredient)
-    }
-
-    func setPercentages(_ percentageByIngredient: [IngredientType : String?]) {
-        self.callsToSetPercentages.append(percentageByIngredient)
-    }
-
-    private(set) var loafCount: String?
-
-    private(set) var loafWeight: String?
-
-    func quantity(for ingredient: IngredientType) -> String? {
-        return self.callsToSetQuantities.last?[ingredient] ?? nil
-    }
-
-    func percentage(for ingredient: IngredientType) -> String? {
-        return self.callsToSetPercentages.last?[ingredient] ?? nil
-    }
-
-    func setBreadType(_ breadType: BreadType) {
-        self.callsToSetBreadType.append(breadType)
+        var setBreadType: [SetBreadType] = []
+        var setFieldsData: [SetFieldsData] = []
     }
 }

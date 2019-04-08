@@ -14,54 +14,41 @@ class MockRecipeCalculatorInteractor: RecipeCalculatorInteractorToPresenter {
     // MARK: - RecipeCalculatorInteractorToPresenter
 
 
-    func calculateBy(flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Percentage]) -> (loafWeight: Double, quantityByIngredient: [IngredientType: Quantity]) {
-
-        // Record the call parameters
-        self.callsToCalculateByFlour.append((flourWeight: flourWeight, loafCount: loafCount, percentByIngredient: percentByIngredient))
-
-        // Use this class's methods to calculate the return values
-        let loafWeight = self.calcLoafWeightForFlour(flourWeight: flourWeight, loafCount: loafCount)
-        let quantityByIngredient = percentByIngredient.mapValuesWithKey{ (ingredient, percentage) -> Double in
-            self.calcQuantityForFlour(flourWeight: flourWeight, loafCount: loafCount, ingredient: ingredient, percentage: percentage)
-        }
-
-        return (loafWeight, quantityByIngredient)
+    func data(for breadType: BreadType) -> RecipeCalculatorData {
+        self.calls.data.append(breadType)
+        return .init(
+            loafCount: 0,
+            loafWeight: 0,
+            ingredientValuesByType: [:]
+        )
     }
 
-    func calculateBy(loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Percentage]) -> [IngredientType: Quantity] {
+    func saveLoafCount(_ loafCount: Int, for breadType: BreadType) {
+        self.calls.saveLoafCount.append((loafCount, breadType))
+    }
 
-        // Record the call parameters
-        self.callsToCalculateByLoaves.append((loafCount: loafCount, loafWeight: loafWeight, percentByIngredient: percentByIngredient))
+    func saveLoafWeight(_ loafWeight: Double, for breadType: BreadType) {
+        self.calls.saveLoafWeight.append((loafWeight, breadType))
+    }
 
-        // Use this class's methods to calculate a return value
-        return percentByIngredient.mapValuesWithKey{ (ingredient, percentage) -> Double in
-            self.calcQuantityForLoaves(loafCount: loafCount, loafWeight: loafWeight, ingredient: ingredient, percentage: percentage)
-        }
+    func savePercentage(_ percentage: Percentage, for ingredient: IngredientType, for breadType: BreadType) {
+        self.calls.savePercentage.append((percentage, ingredient, breadType))
     }
 
 
-    // MARK: - Insights
+    // MARK: - Mock Function Calls
 
 
-    typealias CalcByFlourParameters = (flourWeight: Double, loafCount: Int, percentByIngredient: [IngredientType: Percentage])
-    typealias CalcByLoavesParameters = (loafCount: Int, loafWeight: Double, percentByIngredient: [IngredientType: Percentage])
+    private(set) var calls: Calls = .init()
 
-    private(set) var callsToCalculateByFlour: [CalcByFlourParameters] = []
-    private(set) var callsToCalculateByLoaves: [CalcByLoavesParameters] = []
+    struct Calls {
+        typealias SaveLoafCount = (loafCount: Int, breadType: BreadType)
+        typealias SaveLoafWeight = (loafWeight: Double, breadType: BreadType)
+        typealias SavePercentage = (percentage: Percentage, ingredient: IngredientType, breadType: BreadType)
 
-
-    // MARK: - Subclassable methods
-
-
-    func calcLoafWeightForFlour(flourWeight: Double, loafCount: Int) -> Double {
-        return 10
-    }
-
-    func calcQuantityForFlour(flourWeight: Double, loafCount: Int, ingredient: IngredientType, percentage: Double) -> Double {
-        return 10
-    }
-
-    func calcQuantityForLoaves(loafCount: Int, loafWeight: Double, ingredient: IngredientType, percentage: Double) -> Double {
-        return 10
+        var data: [BreadType] = []
+        var saveLoafCount: [SaveLoafCount] = []
+        var saveLoafWeight: [SaveLoafWeight] = []
+        var savePercentage: [SavePercentage] = []
     }
 }
