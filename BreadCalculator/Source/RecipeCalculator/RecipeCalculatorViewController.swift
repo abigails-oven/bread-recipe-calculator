@@ -65,22 +65,6 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
         _setFieldsData(fieldsData)
     }
 
-    var loafCount: String? {
-        return self.loafCountField.text
-    }
-
-    var loafWeight: String? {
-        return self.loafWeightField.text
-    }
-
-    func quantity(for ingredient: IngredientType) -> String? {
-        return self.controls(for: ingredient).quantityField.text
-    }
-
-    func percentage(for ingredient: IngredientType) -> String? {
-        return self.controls(for: ingredient).percentageField.text
-    }
-
 
     // MARK: - Fields Data
 
