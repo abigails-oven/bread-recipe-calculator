@@ -13,6 +13,7 @@ struct AlertData {
 
     // MARK: - Init
 
+
     init(title: String? = nil, message: String? = nil, actions: [Action] = [], cancelTitle: String? = nil, cancelHandler: (()->Void)? = nil) {
         self.title = title
         self.message = message
@@ -32,12 +33,16 @@ struct AlertData {
         }
     }
 
+
     // MARK: - Title/Message
+
 
     var title: String?
     var message: String?
 
+
     // MARK: - Actions
+
 
     var actions: [Action] = []
 
@@ -48,7 +53,9 @@ struct AlertData {
         var isDestructive: Bool = false
     }
 
+
     // MARK: - Cancel Action
+
 
     var cancelAction: CancelAction? = AlertData.defaultCancelAction
 

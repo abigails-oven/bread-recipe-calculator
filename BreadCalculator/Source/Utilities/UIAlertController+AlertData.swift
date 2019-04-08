@@ -12,6 +12,9 @@ import UIKit
 
 extension UIAlertController {
 
+    // MARK: - Init
+
+
     convenience init(_ data: AlertData) {
 
         self.init(title: data.title, message: data.message, preferredStyle: .alert)

@@ -11,7 +11,6 @@
 		D22BCE08224BE1C9006A0721 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D22BCE07224BE1C9006A0721 /* Assets.xcassets */; };
 		D22BCE0B224BE1C9006A0721 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D22BCE09224BE1C9006A0721 /* LaunchScreen.storyboard */; };
 		D22BCE16224BE1C9006A0721 /* TestRecipeCalculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE15224BE1C9006A0721 /* TestRecipeCalculatorPresenter.swift */; };
-		D22BCE2E224BE1DF006A0721 /* ShouldChangeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE21224BE1DE006A0721 /* ShouldChangeString.swift */; };
 		D22BCE2F224BE1DF006A0721 /* RecipeCalculatorModuleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE23224BE1DE006A0721 /* RecipeCalculatorModuleApi.swift */; };
 		D22BCE30224BE1DF006A0721 /* RecipeCalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE24224BE1DE006A0721 /* RecipeCalculatorViewController.swift */; };
 		D22BCE31224BE1DF006A0721 /* RecipeCalculatorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22BCE25224BE1DE006A0721 /* RecipeCalculatorPresenter.swift */; };
@@ -51,7 +50,6 @@
 		D22BCE11224BE1C9006A0721 /* BreadCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreadCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22BCE15224BE1C9006A0721 /* TestRecipeCalculatorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRecipeCalculatorPresenter.swift; sourceTree = "<group>"; };
 		D22BCE17224BE1C9006A0721 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D22BCE21224BE1DE006A0721 /* ShouldChangeString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShouldChangeString.swift; sourceTree = "<group>"; };
 		D22BCE23224BE1DE006A0721 /* RecipeCalculatorModuleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorModuleApi.swift; sourceTree = "<group>"; };
 		D22BCE24224BE1DE006A0721 /* RecipeCalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorViewController.swift; sourceTree = "<group>"; };
 		D22BCE25224BE1DE006A0721 /* RecipeCalculatorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCalculatorPresenter.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 		D22BCE20224BE1DE006A0721 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D22BCE21224BE1DE006A0721 /* ShouldChangeString.swift */,
 				D230FA70225BB5A100979A8F /* AlertData.swift */,
 				D230FA72225BB7CC00979A8F /* UIAlertController+AlertData.swift */,
 			);
@@ -299,7 +296,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D22BCE2F224BE1DF006A0721 /* RecipeCalculatorModuleApi.swift in Sources */,
-				D22BCE2E224BE1DF006A0721 /* ShouldChangeString.swift in Sources */,
 				D22BCE30224BE1DF006A0721 /* RecipeCalculatorViewController.swift in Sources */,
 				D230FA75225BCD2A00979A8F /* RecipeCalculatorRouter.swift in Sources */,
 				D230FA96225BED6A00979A8F /* Dictionary+Map.swift in Sources */,
