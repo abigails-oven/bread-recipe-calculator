@@ -230,9 +230,11 @@
 				TargetAttributes = {
 					D22BCDFC224BE1C8006A0721 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					D22BCE10224BE1C9006A0721 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = D22BCDFC224BE1C8006A0721;
 					};
 				};
@@ -465,7 +467,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = scottlevie.BreadCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -483,7 +485,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = scottlevie.BreadCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -503,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = scottlevie.BreadCalculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BreadCalculator.app/BreadCalculator";
 			};
@@ -524,7 +526,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = scottlevie.BreadCalculatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BreadCalculator.app/BreadCalculator";
 			};
