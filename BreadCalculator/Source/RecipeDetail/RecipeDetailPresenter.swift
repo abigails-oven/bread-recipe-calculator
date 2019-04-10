@@ -148,6 +148,34 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         return true
     }
 
+/*
+    private func didChangeField<T: Numeric>(name: String, value: String?, asNumber: (String)->T?, save: (T?)->Void) {
+
+        // Attempt to convert the given string to a number
+        if let value = value?.notEmpty, let number = asNumber(value) {
+            // Save the number and update the fields
+            save(number)
+            self.updateViewForFieldsData(animated: true)
+            return
+        }
+
+        // If the given string cannot be converted to a number Do not overwrite the saved number
+
+        let title = NSLocalizedString("Not a Number", comment: "")
+        let message = NSLocalizedString("The value for \(name) must be a number.", comment: "")
+
+        // Present an alert and reset the number field
+        self.router.presentAlert(.init(
+            title: title,
+            message: message,
+            cancelHandler: { [weak self] in
+                // Update the fields with the previously saved values
+                self?.updateViewForFieldsData(animated: true)
+            }
+        ))
+    }
+     */
+
 
     // MARK: - Editing
 
