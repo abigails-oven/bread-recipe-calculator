@@ -25,6 +25,11 @@ class RecipesListViewController: UIViewController, UITableViewDataSource, UITabl
 
     @IBOutlet private weak var tableView: UITableView!
 
+    private func setupTableView() {
+        // Prevent empty cells from being displayed
+        self.tableView.tableFooterView = UIView()
+    }
+
 
     // MARK: - UITableViewDataSource
 
@@ -54,6 +59,8 @@ class RecipesListViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = UITableViewCell(style: .default, reuseIdentifier: self.cellReuseId)
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
+        cell.backgroundColor = .clear
+        cell.textLabel?.textColor = .white
         return cell
     }
 
