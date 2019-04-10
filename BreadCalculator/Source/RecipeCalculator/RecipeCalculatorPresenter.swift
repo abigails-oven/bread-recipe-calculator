@@ -39,7 +39,7 @@ class RecipeCalculatorPresenter: RecipeCalculatorPresenterToView {
         self.updateViewForBreadType(animated: true)
     }
 
-    func viewDidChangeLoafCount(_ loafCountString: String?) {
+    func userDidChangeLoafCount(_ loafCountString: String?) {
 
         self.didChangeField(
             name: LocalizedStrings.Field.loafCountName,

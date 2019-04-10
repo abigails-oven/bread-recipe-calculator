@@ -32,7 +32,7 @@ struct RecipeCalculatorViewData {
 protocol RecipeCalculatorPresenterToView: class {
     func viewDidLoad()
     func viewDidChangeBreadType(_ breadType: BreadType)
-    func viewDidChangeLoafCount(_ loafCount: String?)
+    func userDidChangeLoafCount(_ loafCount: String?)
     func viewDidChangeLoafWeight(_ loafWeight: String?)
     func viewDidChangePercentage(_ percentage: String?, for ingredient: IngredientType)
     func viewDidChangeQuantity(_ percentage: String?, for ingredient: IngredientType)

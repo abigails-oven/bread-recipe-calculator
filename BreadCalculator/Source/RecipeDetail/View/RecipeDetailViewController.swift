@@ -18,9 +18,8 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // The view must be configured here because the view is the Window's rootViewController.
-        // This means viewDidLoad will be called before there is an opportunity to configure the view.
-        RecipeDetailConfig(self)
+        // TODO: Move this
+        RecipeDetailConfig(self, .wheat)
 
         self.setupKeyboard()
         self.setupTableView()
@@ -57,6 +56,19 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
         self.quantityPerLoafField.text = quantityPerLoaf
     }
 
+    func setQuantities(_ quantityByIndexPath: [IndexPath: String]) {
+
+        guard let visibleIndexPaths = self.tableView.indexPathsForVisibleRows else {
+            return
+        }
+
+        for indexPath in visibleIndexPaths {
+            if let quantity = quantityByIndexPath[indexPath], let cell = self.visibleCell(for: indexPath) {
+                cell.setQuantity(quantity)
+            }
+        }
+    }
+
 
     // MARK: - Editing
 
@@ -64,7 +76,8 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
     @IBOutlet private weak var editButton: UIButton!
 
     @IBAction private func didTapEditButton(_ sender: UIButton) {
-        self.presenter.didTapEditButton()
+        self.view.firstResponder?.resignFirstResponder()
+        self.presenter.userDidTapEditButton()
     }
 
 
@@ -90,9 +103,9 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
 
         switch sender {
         case self.loafCountField:
-            self.presenter.viewDidChangeLoafCount(self.loafCountField.text)
+            self.presenter.userDidChangeLoafCount(self.loafCountField.text)
         case self.quantityPerLoafField:
-            self.presenter.viewDidChangeQuantityPerLoaf(self.quantityPerLoafField.text)
+            self.presenter.userDidChangeQuantityPerLoaf(self.quantityPerLoafField.text)
         default:
             assertionFailure("Unsupported field")
         }
@@ -103,6 +116,10 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
 
 
     @IBOutlet private var tableView: UITableView!
+
+    private func visibleCell(for indexPath: IndexPath) -> RecipeDetailIngredientCell? {
+        return self.tableView.cellForRow(at: indexPath) as! RecipeDetailIngredientCell?
+    }
 
     private func setupTableView() {
         // Prevent extra cells from showing

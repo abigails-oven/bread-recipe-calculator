@@ -14,8 +14,9 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     // MARK: - Init
 
 
-    init(_ view: RecipeDetailViewToPresenter) {
+    init(_ view: RecipeDetailViewToPresenter, _ interactor: RecipeDetailInteractorToPresenter) {
         self.view = view
+        self.interactor = interactor
     }
 
 
@@ -23,6 +24,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
 
     private weak var view: RecipeDetailViewToPresenter!
+    private let interactor: RecipeDetailInteractorToPresenter!
 
 
     // MARK: - RecipeDetailPresenterToView
@@ -30,70 +32,80 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     func viewDidLoad() {
         self.updateViewEditingAppearance()
-        self.view.setTitle(self.recipe.title)
-        self.view.setLoafCount("\(self.recipe.loafCount)")
+        self.view.setTitle(self.interactor.recipeTitle)
+        // TODO: Format properly
+        self.view.setLoafCount("\(self.interactor.loafCount)")
+        self.view.setQuantityPerLoaf("\(self.interactor.quantityPerLoaf)")
     }
 
-    func viewDidChangeLoafCount(_ loafCountString: String?) {
+    private(set) var isEditing: Bool = false
 
+    func userDidTapEditButton() {
+        // Toggle edit mode
+        self.isEditing = !self.isEditing
+        self.updateViewEditingAppearance()
+    }
+
+    func userDidChangeLoafCount(_ loafCountString: String?) {
+
+        // TODO: Strip formatting properly
         guard let loafCountString = loafCountString?.notEmpty, let loafCount = Int(loafCountString) else {
             // TODO: Show alert and reset
             return
         }
 
-        self.recipe.loafCount = loafCount
+        self.interactor.loafCount = loafCount
+        self.updateViewQuantities()
     }
 
-    func viewDidChangeQuantityPerLoaf(_ quantityPerLoafString: String?) {
+    func userDidChangeQuantityPerLoaf(_ quantityPerLoafString: String?) {
 
+        // TODO: Strip formatting properly
         guard let quantityPerLoafString = quantityPerLoafString?.notEmpty, let quantityPerLoaf = Double(quantityPerLoafString) else {
             // TODO: Show alert and reset
             return
         }
 
-        self.recipe.quantityPerLoaf = quantityPerLoaf
+        self.interactor.quantityPerLoaf = quantityPerLoaf
+        self.updateViewQuantities()
     }
 
-    func viewDidChangeStageName(_ name: String?, at index: Int) {
+    func userDidChangeStageTitle(_ title: String?, at index: Int) {
+
+        guard let title = title?.notEmpty else {
+            // TODO: Show alert and reset
+            return
+        }
+
+        let stage = self.stage(at: index)
+        self.interactor.setStageTitle(title, id: stage.id)
+    }
+
+    func userDidChangeName(_ name: String?, at indexPath: IndexPath) {
 
         guard let name = name?.notEmpty else {
             // TODO: Show alert and reset
             return
         }
 
-        self.stage(at: index).title = name
+        let ingredient = self.ingredient(at: indexPath)
+        self.interactor.setIngredientName(name, id: ingredient.id)
     }
 
-    func viewDidChangeName(_ name: String?, at indexPath: IndexPath) {
-
-        guard let name = name?.notEmpty else {
-            // TODO: Show alert and reset
-            return
-        }
-
-        self.ingredient(at: indexPath).name = name
-    }
-
-    func viewDidChangeWeight(_ weightString: String?, at indexPath: IndexPath) {
+    func userDidChangeWeight(_ weightString: String?, at indexPath: IndexPath) {
 
         guard let weightString = weightString?.notEmpty, let weight = Double(weightString) else {
             // TODO: Show alert and reset
             return
         }
 
-        self.ingredient(at: indexPath).weight = weight
-    }
-
-    private(set) var isEditing: Bool = false
-
-    func didTapEditButton() {
-        // Toggle edit mode
-        self.isEditing = !self.isEditing
-        self.updateViewEditingAppearance()
+        let ingredient = self.ingredient(at: indexPath)
+        self.interactor.setIngredientWeight(weight, id: ingredient.id)
+        self.updateViewQuantities()
     }
 
     var numberOfStages: Int {
-        return self.recipe.stages.count
+        return self.interactor.stages.count
     }
 
     func numberOfIngredients(forStage stageIndex: Int) -> Int {
@@ -108,9 +120,11 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     func configure(_ cell: RecipeDetailIngredientCellProtocol, at indexPath: IndexPath) {
         let ingredient = self.ingredient(at: indexPath)
+        let quantity = self.interactor.quantityForIngredient(withId: ingredient.id)
         cell.setName(ingredient.name)
+        // TODO: Format properly
         cell.setWeight("\(ingredient.weight)")
-        cell.setQuantity("4")
+        cell.setQuantity("\(quantity)")
         cell.setIsEditing(self.isEditing)
     }
 
@@ -119,7 +133,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     }
 
 
-    // MARK: - Edit
+    // MARK: - Update View
 
 
     private func updateViewEditingAppearance() {
@@ -132,32 +146,35 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         self.view.setIsEditing(self.isEditing)
     }
 
+    private func updateViewQuantities() {
 
-    // MARK: - Test
+        var quantityByIndexPath: [IndexPath: String] = [:]
 
+        // Map each quantity to an index path for the view
+        for (stageIndex, stage) in self.interactor.stages.enumerated() {
+            for (ingredientIndex, ingredient) in stage.ingredients.enumerated() {
+                let indexPath = IndexPath(row: ingredientIndex, section: stageIndex)
+                let quantity = self.interactor.quantityForIngredient(withId: ingredient.id)
+                // TODO: Format quantity properly
+                quantityByIndexPath[indexPath] = "\(quantity)"
+            }
+        }
 
-    private func stage(at index: Int) -> Recipe.Stage {
-        return self.recipe.stages[index]
+        self.view.setQuantities(quantityByIndexPath)
     }
 
-    private func ingredient(at indexPath: IndexPath) -> Recipe.Ingredient {
+
+    // MARK: - Convenience Accessors
+
+
+    private func stage(at index: Int) -> RecipeDetail.Stage {
+        return self.interactor.stages[index]
+    }
+
+    private func ingredient(at indexPath: IndexPath) -> RecipeDetail.Ingredient {
         let stage = self.stage(at: indexPath.section)
         return stage.ingredients[indexPath.row]
     }
-
-    private var recipe: Recipe = .init(
-        title: "Fancy Recipe",
-        stages: [
-            .init(
-                title: "First Stage",
-                ingredients: [.init(name: "Flour", weight: 3)]
-            ),
-            .init(
-                title: "Second Stage",
-                ingredients: [.init(name: "Water", weight: 3)]
-            )
-        ]
-    )
 
 
     // MARK: - Localized Strings

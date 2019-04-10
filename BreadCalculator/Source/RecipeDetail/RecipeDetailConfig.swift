@@ -12,9 +12,10 @@ import Foundation
 class RecipeDetailConfig {
 
     @discardableResult
-    init(_ view: RecipeDetailViewController) {
+    init(_ view: RecipeDetailViewController, _ recipe: Recipe) {
 
-        let presenter = RecipeDetailPresenter(view)
+        let interactor = RecipeDetailInteractor(recipe)
+        let presenter = RecipeDetailPresenter(view, interactor)
         view.presenter = presenter
     }
 }

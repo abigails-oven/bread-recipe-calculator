@@ -122,7 +122,7 @@ class RecipeCalculatorViewController: UIViewController, UITextFieldDelegate, Rec
 
         switch textField {
         case self.loafCountField:
-            self.presenter.viewDidChangeLoafCount(textField.text)
+            self.presenter.userDidChangeLoafCount(textField.text)
 
         case self.loafWeightField:
             self.presenter.viewDidChangeLoafWeight(textField.text)

@@ -41,6 +41,7 @@
 		D2BF9174225DA202002E0EFF /* RecipeDetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2BF916A225DA202002E0EFF /* RecipeDetailView.storyboard */; };
 		D2BF9175225DA202002E0EFF /* RecipeDetailIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2BF916C225DA202002E0EFF /* RecipeDetailIngredientCell.xib */; };
 		D2BF9176225DA202002E0EFF /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF916D225DA202002E0EFF /* RecipeDetailViewController.swift */; };
+		D2BF9178225DA615002E0EFF /* RecipeDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF9177225DA615002E0EFF /* RecipeDetailInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		D2BF916B225DA202002E0EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecipeDetailView.storyboard; sourceTree = "<group>"; };
 		D2BF916C225DA202002E0EFF /* RecipeDetailIngredientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecipeDetailIngredientCell.xib; sourceTree = "<group>"; };
 		D2BF916D225DA202002E0EFF /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
+		D2BF9177225DA615002E0EFF /* RecipeDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				D2BF9165225DA202002E0EFF /* RecipeDetailConfig.swift */,
 				D2BF9166225DA202002E0EFF /* View */,
 				D2BF9163225DA202002E0EFF /* RecipeDetailPresenter.swift */,
+				D2BF9177225DA615002E0EFF /* RecipeDetailInteractor.swift */,
 			);
 			path = RecipeDetail;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				D22BCE34224BE1DF006A0721 /* RecipeCalculatorConfig.swift in Sources */,
 				D2BF9172225DA202002E0EFF /* RecipeDetailIngredientCell.swift in Sources */,
 				D2BF9153225D0BF0002E0EFF /* Recipe.swift in Sources */,
+				D2BF9178225DA615002E0EFF /* RecipeDetailInteractor.swift in Sources */,
 				D2BF9173225DA202002E0EFF /* RecipeDetailStageHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
