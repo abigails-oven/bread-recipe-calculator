@@ -51,24 +51,33 @@ class RecipeDetailInteractor: RecipeDetailInteractorToPresenter {
 
     func setStageTitle(_ title: String, id: UUID) {
 
-        if let stage = self.stageById[id] {
-            stage.title = title
+        guard let stage = self.stageById[id] else {
+            // TODO: Freak out here
+            return
         }
+
+        stage.title = title
     }
 
     func setIngredientName(_ name: String, id: UUID) {
 
-        if let ingredient = self.ingredientById[id] {
-            ingredient.name = name
+        guard let ingredient = self.ingredientById[id] else {
+            // TODO: Freak out here
+            return
         }
+
+        ingredient.name = name
     }
 
     func setIngredientWeight(_ weight: Double, id: UUID) {
 
-        if let ingredient = self.ingredientById[id] {
-            ingredient.weight = weight
-            self.updateCachedQuantities()
+        guard let ingredient = self.ingredientById[id] else {
+            // TODO: Freak out here
+            return
         }
+
+        ingredient.weight = weight
+        self.updateCachedQuantities()
     }
 
     func quantityForIngredient(withId id: UUID) -> Double {
@@ -120,6 +129,7 @@ class RecipeDetailInteractor: RecipeDetailInteractorToPresenter {
 
     private lazy var quantityByIngredientId: [UUID: Double] = self.generateCachedQuantities()
 
+    /// Calculates each ingredient's quantity and keys it by the ingredient's id
     private func generateCachedQuantities() -> [UUID: Double] {
 
         // Sum the ingredients' weights
@@ -152,10 +162,12 @@ class RecipeDetailInteractor: RecipeDetailInteractorToPresenter {
     private var stageById: [UUID: Recipe.Stage] = [:]
     private var ingredientById: [UUID: Recipe.Ingredient] = [:]
 
+    /// Updates `stageById`. Should only be called if stages are added or removed from the recipe.
     private func updateStageMap() {
         self.stageById = self.recipe.stages.dictionary(key: { $0.id })
     }
 
+    /// Updates `ingredientById`. Should only be called if ingredients are added or removed from the recipe.
     private func updateIngredientMap() {
         self.ingredientById = self.recipe.stages.reduce(into: [:], { (result, stage) in
             stage.ingredients.forEach { result[$0.id] = $0 }
