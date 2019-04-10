@@ -40,6 +40,7 @@
 		D2BF915B225D0BF0002E0EFF /* RecipePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF9151225D0BF0002E0EFF /* RecipePresenter.swift */; };
 		D2BF915C225D0BF0002E0EFF /* RecipeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF9152225D0BF0002E0EFF /* RecipeConfig.swift */; };
 		D2BF915E225D6900002E0EFF /* UITextField+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF915D225D6900002E0EFF /* UITextField+Appearance.swift */; };
+		D2BF9160225D90E7002E0EFF /* DefaultRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BF915F225D90E7002E0EFF /* DefaultRecipes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		D2BF9151225D0BF0002E0EFF /* RecipePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipePresenter.swift; sourceTree = "<group>"; };
 		D2BF9152225D0BF0002E0EFF /* RecipeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeConfig.swift; sourceTree = "<group>"; };
 		D2BF915D225D6900002E0EFF /* UITextField+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Appearance.swift"; sourceTree = "<group>"; };
+		D2BF915F225D90E7002E0EFF /* DefaultRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRecipes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 			children = (
 				D22BCE00224BE1C8006A0721 /* AppDelegate.swift */,
 				D2BF9146225D0BF0002E0EFF /* Recipe */,
+				D2BF915F225D90E7002E0EFF /* DefaultRecipes.swift */,
 				D22BCE22224BE1DE006A0721 /* RecipeCalculator */,
 				D22BCE2A224BE1DE006A0721 /* Extensions */,
 				D22BCE20224BE1DE006A0721 /* Utilities */,
@@ -362,6 +365,7 @@
 				D2BF915C225D0BF0002E0EFF /* RecipeConfig.swift in Sources */,
 				D230FA9A225BED6A00979A8F /* NotEmpty.swift in Sources */,
 				D2BF915A225D0BF0002E0EFF /* RecipeModuleApi.swift in Sources */,
+				D2BF9160225D90E7002E0EFF /* DefaultRecipes.swift in Sources */,
 				D230FA94225BED6A00979A8F /* UIView+FirstResponder.swift in Sources */,
 				D230FA95225BED6A00979A8F /* RawRepresentable+Int+AllCases.swift in Sources */,
 				D2BF9154225D0BF0002E0EFF /* RecipeIngredientCell.swift in Sources */,
