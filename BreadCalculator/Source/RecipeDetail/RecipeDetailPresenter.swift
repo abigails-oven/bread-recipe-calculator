@@ -14,9 +14,10 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     // MARK: - Init
 
 
-    init(_ view: RecipeDetailViewToPresenter, _ interactor: RecipeDetailInteractorToPresenter) {
+    init(_ view: RecipeDetailViewToPresenter, _ interactor: RecipeDetailInteractorToPresenter, _ router: RecipeDetailRouterToPresenter) {
         self.view = view
         self.interactor = interactor
+        self.router = router
     }
 
 
@@ -25,6 +26,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     private weak var view: RecipeDetailViewToPresenter!
     private let interactor: RecipeDetailInteractorToPresenter!
+    private let router: RecipeDetailRouterToPresenter!
 
 
     // MARK: - RecipeDetailPresenterToView
@@ -38,7 +40,9 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         self.view.setQuantityPerLoaf("\(self.interactor.quantityPerLoaf)")
     }
 
-    private(set) var isEditing: Bool = false
+    func userDidTapBackButton() {
+        self.router.dismiss()
+    }
 
     func userDidTapEditButton() {
         // Toggle edit mode
@@ -131,6 +135,12 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     func canEditCell(at indexPath: IndexPath) -> Bool {
         return true
     }
+
+
+    // MARK: - Editing
+
+
+    private var isEditing: Bool = false
 
 
     // MARK: - Update View

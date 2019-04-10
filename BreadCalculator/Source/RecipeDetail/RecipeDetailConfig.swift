@@ -15,7 +15,8 @@ class RecipeDetailConfig {
     init(_ view: RecipeDetailViewController, _ recipe: Recipe) {
 
         let interactor = RecipeDetailInteractor(recipe)
-        let presenter = RecipeDetailPresenter(view, interactor)
+        let router = RecipeDetailRouter(view)
+        let presenter = RecipeDetailPresenter(view, interactor, router)
         view.presenter = presenter
     }
 }

@@ -12,18 +12,36 @@ import UIKit
 
 class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
+    // MARK: - Init
+
+
+    static func initFromStoryboard() -> RecipeDetailViewController {
+        let storyboard = UIStoryboard(name: "RecipeDetailView", bundle: nil)
+        return storyboard.instantiateInitialViewController() as! RecipeDetailViewController
+    }
+
+
     // MARK: - UIViewController
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // TODO: Move this
-        RecipeDetailConfig(self, .wheat)
-
         self.setupKeyboard()
         self.setupTableView()
+
+        let navBar = self.navigationController?.navigationBar
+        navBar?.barTintColor = self.view.backgroundColor
+        navBar?.tintColor = .white
+
         self.presenter.viewDidLoad()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            self.presenter.userDidTapBackButton()
+        }
     }
 
 
@@ -41,7 +59,7 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
     }
 
     func setEditButtonTitle(_ title: String?) {
-        self.editButton.setTitle(title, for: .normal)
+        self.editButton.title = title
     }
 
     func setTitle(_ title: String?) {
@@ -73,9 +91,9 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
     // MARK: - Editing
 
 
-    @IBOutlet private weak var editButton: UIButton!
+    @IBOutlet weak var editButton: UIBarButtonItem!
 
-    @IBAction private func didTapEditButton(_ sender: UIButton) {
+    @IBAction func didTapEditButton(_ sender: UIBarButtonItem) {
         self.view.firstResponder?.resignFirstResponder()
         self.presenter.userDidTapEditButton()
     }

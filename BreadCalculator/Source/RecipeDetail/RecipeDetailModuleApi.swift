@@ -40,7 +40,8 @@ protocol RecipeDetailIngredientCellProtocol: class {
 protocol RecipeDetailPresenterToView: class {
 
     func viewDidLoad()
-    // Editing
+    // Nav Buttons
+    func userDidTapBackButton()
     func userDidTapEditButton()
     // Field Changes
     func userDidChangeLoafCount(_ loafCountString: String?)
@@ -75,4 +76,13 @@ protocol RecipeDetailInteractorToPresenter: class {
 struct RecipeDetail {
     typealias Stage = (id: UUID, title: String, ingredients: [Ingredient])
     typealias Ingredient = (id: UUID, name: String, weight: Double)
+}
+
+
+// MARK: - Router
+
+
+protocol RecipeDetailRouterToPresenter {
+    func dismiss()
+    func presentAlert(_ data: AlertData)
 }
