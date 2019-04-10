@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RecipeStageHeader" customModule="BreadCalculator" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Stage Title" placeholder="Stage Title" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="ojk-jp-Yqt">
+                    <rect key="frame" x="0.0" y="10" width="414" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="UfN-AN-8yD"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes"/>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ojk-jp-Yqt" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="JGw-z5-isd"/>
+                <constraint firstItem="ojk-jp-Yqt" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Z21-gp-vN6"/>
+                <constraint firstItem="ojk-jp-Yqt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZN8-Rc-1zy"/>
+                <constraint firstItem="ojk-jp-Yqt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" constant="10" id="nfl-1q-ppT"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="titleField" destination="ojk-jp-Yqt" id="D83-16-WAZ"/>
+            </connections>
+            <point key="canvasLocation" x="-265.21739130434787" y="417.85714285714283"/>
+        </view>
+    </objects>
+</document>

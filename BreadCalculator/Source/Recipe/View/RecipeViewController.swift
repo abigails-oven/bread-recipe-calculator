@@ -1,0 +1,274 @@
+//
+//  RecipeViewController.swift
+//  BreadCalculator
+//
+//  Created by Scott Levie on 4/8/19.
+//  Copyright © 2019 Scott Levie. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+
+class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+
+    // MARK: - UIViewController
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // The view must be configured here because the view is the Window's rootViewController.
+        // This means viewDidLoad will be called before there is an opportunity to configure the view.
+        RecipeConfig(self)
+
+        self.setupKeyboard()
+        self.setupTableView()
+        self.presenter.viewDidLoad()
+    }
+
+
+    // MARK: - Module Accessors
+
+
+    var presenter: RecipePresenterToView!
+
+
+    // MARK: - RecipeViewToPresenter
+
+
+    func setIsEditing(_ isEditing: Bool) {
+        self.tableView.reloadData()
+    }
+
+    func setEditButtonTitle(_ title: String?) {
+        self.editButton.setTitle(title, for: .normal)
+    }
+
+    func setTitle(_ title: String?) {
+        self.titleLabel.text = title
+    }
+
+    func setLoafCount(_ loafCount: String?) {
+        self.loafCountField.text = loafCount
+    }
+
+    func setQuantityPerLoaf(_ quantityPerLoaf: String?) {
+        self.quantityPerLoafField.text = quantityPerLoaf
+    }
+
+
+    // MARK: - Editing
+
+
+    @IBOutlet private weak var editButton: UIButton!
+
+    @IBAction private func didTapEditButton(_ sender: UIButton) {
+        self.presenter.didTapEditButton()
+    }
+
+
+    // MARK: - Scroll View
+
+
+    @IBOutlet private weak var contentScrollView: UIScrollView!
+
+
+    // MARK: - Title
+
+
+    @IBOutlet private weak var titleLabel: UILabel!
+
+
+    // MARK: - Loaf Fields
+
+
+    @IBOutlet private weak var loafCountField: UITextField!
+    @IBOutlet private weak var quantityPerLoafField: UITextField!
+
+    @IBAction private func didEndEditingLoafField(_ sender: UITextField) {
+
+        switch sender {
+        case self.loafCountField:
+            self.presenter.viewDidChangeLoafCount(self.loafCountField.text)
+        case self.quantityPerLoafField:
+            self.presenter.viewDidChangeQuantityPerLoaf(self.quantityPerLoafField.text)
+        default:
+            assertionFailure("Unsupported field")
+        }
+    }
+
+
+    // MARK: - Table View
+
+
+    @IBOutlet private var tableView: UITableView!
+
+    private func setupTableView() {
+        // Prevent extra cells from showing
+        self.tableView.tableFooterView = UIView()
+        // Register cell
+        self.tableView.register(RecipeIngredientCell.nib, forCellReuseIdentifier: RecipeIngredientCell.reuseId)
+
+        let screenSize = UIScreen.main.bounds.size
+
+        // Calculate row height
+        let cell = RecipeIngredientCell.initFromNib()
+        self.tableView.rowHeight = cell.systemLayoutSizeFitting(screenSize).height
+
+        // Calculate header height
+        let header = RecipeStageHeader.initFromNib()
+        self.tableView.sectionHeaderHeight = header.systemLayoutSizeFitting(screenSize).height
+    }
+
+
+    // MARK: - UITableViewDataSource
+
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.presenter.numberOfStages
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = self.dequeueHeaderView(forSection: section)
+        view.setKeyboardToolbar(self.keyboardToolbar)
+        self.presenter.configure(view, at: section)
+        return view
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.presenter.numberOfIngredients(forStage: section)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeIngredientCell.reuseId, for: indexPath) as! RecipeIngredientCell
+        cell.backgroundColor = .clear
+        cell.setKeyboardToolbar(self.keyboardToolbar)
+        self.presenter.configure(cell, at: indexPath)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return self.presenter.canEditCell(at: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // TODO: Delete ingredient
+        print("Delete \(indexPath)")
+    }
+
+
+    // MARK: - Header Views
+
+
+    private func dequeueHeaderView(forSection section: Int) -> RecipeStageHeader {
+
+        if let view = self.headerViewBySection[section]?.reference {
+            return view
+        }
+
+        let view = RecipeStageHeader.initFromNib()
+        self.headerViewBySection[section] = Weak(reference: view)
+        return view
+    }
+
+    private var headerViewBySection: [Int: Weak<RecipeStageHeader>] = [:]
+
+    private struct Weak<T: AnyObject> {
+        weak var reference: T?
+    }
+
+
+    // MARK: - Keyboard
+
+
+    private func setupKeyboard() {
+
+        // Add toolbar with done button to all UITextField subviews
+        self.view.setKeyboardToolbar(self.keyboardToolbar)
+
+        // Setup Keyboard observation
+
+        let center = NotificationCenter.default
+        let keyboardWillShow = UIResponder.keyboardWillShowNotification
+        let keyboardWillHide = UIResponder.keyboardWillHideNotification
+
+        self.keyboardObservers = [
+            center.addObserver(forName: keyboardWillShow, object: nil, queue: nil) { [weak self] notification in
+                self?.keyboardWillShow(notification)
+            },
+            center.addObserver(forName: keyboardWillHide, object: nil, queue: nil) { [weak self] notification in
+                self?.keyboardWillHide(notification)
+            }
+        ]
+    }
+
+
+    // MARK: - Keyboard Done Button
+
+
+    private lazy var keyboardToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(self.didTapKeyboardDoneButton(_:))
+        )
+
+        toolbar.items = [doneButton]
+        toolbar.sizeToFit()
+
+        return toolbar
+    }()
+
+    @objc
+    private func didTapKeyboardDoneButton(_ sender: Any) {
+        self.view.firstResponder?.resignFirstResponder()
+    }
+
+
+    // MARK: - Keyboard Observers
+
+
+    private func keyboardWillShow(_ notification: Notification) {
+
+        // Set the scroll view's insets so the focused text field is not covered by the keyboard
+        let keyboardRect = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+        let bottomOffset = keyboardRect.height + KEYBOARD_COMFORT_PADDING
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: bottomOffset, right: 0)
+        self.contentScrollView.contentInset = insets
+        self.contentScrollView.scrollIndicatorInsets = insets
+    }
+
+    private func keyboardWillHide(_ notification: Notification) {
+        // Restore the scroll view's insets when the keyboard dismisses
+        self.contentScrollView.contentInset = .zero
+        self.contentScrollView.scrollIndicatorInsets = .zero
+    }
+
+    private var keyboardObservers: [NSObjectProtocol]?
+}
+
+
+private let KEYBOARD_COMFORT_PADDING: CGFloat = 32
+
+
+// MARK: - UIView: Keyboard Done Button
+
+
+private extension UIView {
+
+    /// Recursively adds the given toolbar to all descendants that are type UITextField
+    func setKeyboardToolbar(_ toolbar: UIToolbar) {
+
+        if let textField = self as? UITextField {
+            textField.inputAccessoryView = toolbar
+            return
+        }
+
+        for view in self.subviews {
+            view.setKeyboardToolbar(toolbar)
+        }
+    }
+}
