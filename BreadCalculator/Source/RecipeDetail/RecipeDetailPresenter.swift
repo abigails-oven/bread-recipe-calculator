@@ -35,9 +35,8 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     func viewDidLoad() {
         self.updateViewEditingAppearance()
         self.view.setTitle(self.interactor.recipeTitle)
-        // TODO: Format properly
-        self.view.setLoafCount("\(self.interactor.loafCount)")
-        self.view.setQuantityPerLoaf("\(self.interactor.quantityPerLoaf)")
+        self.updateViewLoafCount()
+        self.updateViewQuantityPerLoaf()
     }
 
     func userDidTapBackButton() {
@@ -54,23 +53,21 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
         self.router.promptForFlourQuantity(title: self.localized.flourPrompt.title) { flourQuantityString in
 
-            // TODO: Strip formatting properly
-            guard let flourQuantityString = flourQuantityString?.notEmpty, let flourQuantity = Double(flourQuantityString) else {
+            guard let flourQuantityString = flourQuantityString?.notEmpty, let flourQuantity = self.stripToDouble(flourQuantityString) else {
+                // TODO: Show alert
                 return
             }
 
-            // TODO: Format properly
             self.interactor.solveForFlourQuantity(flourQuantity)
-            self.view.setLoafCount("\(self.interactor.loafCount)")
-            self.view.setQuantityPerLoaf("\(self.interactor.quantityPerLoaf)")
+            self.updateViewLoafCount()
+            self.updateViewQuantityPerLoaf()
             self.updateViewQuantities()
         }
     }
 
     func userDidChangeLoafCount(_ loafCountString: String?) {
 
-        // TODO: Strip formatting properly
-        guard let loafCountString = loafCountString?.notEmpty, let loafCount = Int(loafCountString) else {
+        guard let loafCountString = loafCountString?.notEmpty, let loafCount = self.stripToInt(loafCountString) else {
             // TODO: Show alert and reset
             return
         }
@@ -81,8 +78,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     func userDidChangeQuantityPerLoaf(_ quantityPerLoafString: String?) {
 
-        // TODO: Strip formatting properly
-        guard let quantityPerLoafString = quantityPerLoafString?.notEmpty, let quantityPerLoaf = Double(quantityPerLoafString) else {
+        guard let quantityPerLoafString = quantityPerLoafString?.notEmpty, let quantityPerLoaf = self.stripToDouble(quantityPerLoafString) else {
             // TODO: Show alert and reset
             return
         }
@@ -143,9 +139,8 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         let ingredient = self.ingredient(at: indexPath)
         let quantity = self.interactor.quantityForIngredient(withId: ingredient.id)
         cell.setName(ingredient.name)
-        // TODO: Format properly
-        cell.setWeight("\(ingredient.weight)")
-        cell.setQuantity("\(quantity)")
+        cell.setWeight(self.format(ingredient.weight))
+        cell.setQuantity(self.format(quantity))
         cell.setIsEditing(self.isEditing)
     }
 
@@ -173,6 +168,18 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         self.view.setIsEditing(self.isEditing)
     }
 
+    private func updateViewLoafCount() {
+        let loafCount = self.interactor.loafCount
+        let loafCountString = self.format(loafCount)
+        self.view.setLoafCount(loafCountString)
+    }
+
+    private func updateViewQuantityPerLoaf() {
+        let quantityPerLoaf = self.interactor.quantityPerLoaf
+        let quantityPerLoafString = self.format(quantityPerLoaf)
+        self.view.setQuantityPerLoaf(quantityPerLoafString)
+    }
+
     private func updateViewQuantities() {
 
         var quantityByIndexPath: [IndexPath: String] = [:]
@@ -182,8 +189,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
             for (ingredientIndex, ingredient) in stage.ingredients.enumerated() {
                 let indexPath = IndexPath(row: ingredientIndex, section: stageIndex)
                 let quantity = self.interactor.quantityForIngredient(withId: ingredient.id)
-                // TODO: Format quantity properly
-                quantityByIndexPath[indexPath] = "\(quantity)"
+                quantityByIndexPath[indexPath] = self.format(quantity)
             }
         }
 
@@ -222,4 +228,50 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
             let done = NSLocalizedString("Done", comment: "")
         }
     }
+
+
+    // MARK: - Number Formatting
+
+
+    private func stripToDouble(_ formattedString: String) -> Double? {
+        self.formatter.maximumFractionDigits = .max
+        return self.formatter.number(from: formattedString)?.doubleValue
+    }
+
+    private func stripToInt(_ formattedString: String) -> Int? {
+        self.formatter.maximumFractionDigits = 0
+        return self.formatter.number(from: formattedString)?.intValue
+    }
+
+    private func format(_ double: Double) -> String {
+
+        let fractionDigits: Int
+
+        if (double < 10) {
+            fractionDigits = 2
+        }
+        else if (double < 100) {
+            fractionDigits = 1
+        }
+        else {
+            fractionDigits = 0
+        }
+
+        self.formatter.minimumFractionDigits = fractionDigits
+        self.formatter.maximumFractionDigits = fractionDigits
+        return self.formatter.string(from: NSNumber(value: double))!
+    }
+
+    private func format(_ int: Int) -> String {
+
+        self.formatter.maximumFractionDigits = 0
+        return self.formatter.string(from: NSNumber(value: int))!
+    }
+
+    private let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.locale = .current
+        formatter.minimumIntegerDigits = 1
+        return formatter
+    }()
 }
