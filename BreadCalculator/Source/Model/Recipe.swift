@@ -17,14 +17,12 @@ class Recipe {
     var quantityPerLoaf: Double
     var stages: [Stage] = []
 
-    init(title: String = "", loafCount: Int = 2, quantityPerLoaf: Double = 2, stages: [Stage] = []) {
+    init(title: String, loafCount: Int = 2, quantityPerLoaf: Double = 2, stages: [Stage] = []) {
         self.title = title
         self.loafCount = loafCount
         self.quantityPerLoaf = quantityPerLoaf
         self.stages = stages
     }
-
-    private static let placeholder: String = NSLocalizedString("Dough Name", comment: "")
 
     class Stage: Codable {
 
@@ -32,12 +30,10 @@ class Recipe {
         var title: String
         var ingredients: [Ingredient]
 
-        init(title: String = "", ingredients: [Ingredient] = []) {
+        init(title: String, ingredients: [Ingredient] = []) {
             self.title = title
             self.ingredients = ingredients
         }
-
-        static let placeholder = NSLocalizedString("Stage Name", comment: "")
     }
 
     class Ingredient: Codable {
@@ -47,12 +43,10 @@ class Recipe {
         var weight: Double
         var isFlour: Bool
 
-        init(name: String = "", weight: Double = 0, isFlour: Bool = false) {
+        init(name: String, weight: Double = 0, isFlour: Bool = false) {
             self.name = name
             self.weight = weight
             self.isFlour = isFlour
         }
-
-        static let placeholder = NSLocalizedString("Ingredient", comment: "")
     }
 }
