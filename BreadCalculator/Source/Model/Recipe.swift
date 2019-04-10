@@ -38,19 +38,19 @@ class Recipe {
         }
 
         static let placeholder = NSLocalizedString("Stage Name", comment: "")
+    }
 
-        class Ingredient: Codable {
+    class Ingredient: Codable {
 
-            let id: UUID = .init()
-            var name: String
-            var weight: Double
+        let id: UUID = .init()
+        var name: String
+        var weight: Double
 
-            init(name: String = "", weight: Double = 0) {
-                self.name = name
-                self.weight = weight
-            }
-
-            static let placeholder = NSLocalizedString("Ingredient", comment: "")
+        init(name: String = "", weight: Double = 0) {
+            self.name = name
+            self.weight = weight
         }
+
+        static let placeholder = NSLocalizedString("Ingredient", comment: "")
     }
 }

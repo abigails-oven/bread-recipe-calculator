@@ -1,5 +1,5 @@
 //
-//  RecipeViewController.swift
+//  RecipeDetailViewController.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/8/19.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     // MARK: - UIViewController
 
@@ -20,7 +20,7 @@ class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableView
 
         // The view must be configured here because the view is the Window's rootViewController.
         // This means viewDidLoad will be called before there is an opportunity to configure the view.
-        RecipeConfig(self)
+        RecipeDetailConfig(self)
 
         self.setupKeyboard()
         self.setupTableView()
@@ -31,10 +31,10 @@ class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableView
     // MARK: - Module Accessors
 
 
-    var presenter: RecipePresenterToView!
+    var presenter: RecipeDetailPresenterToView!
 
 
-    // MARK: - RecipeViewToPresenter
+    // MARK: - RecipeDetailViewToPresenter
 
 
     func setIsEditing(_ isEditing: Bool) {
@@ -108,16 +108,16 @@ class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableView
         // Prevent extra cells from showing
         self.tableView.tableFooterView = UIView()
         // Register cell
-        self.tableView.register(RecipeIngredientCell.nib, forCellReuseIdentifier: RecipeIngredientCell.reuseId)
+        self.tableView.register(RecipeDetailIngredientCell.nib, forCellReuseIdentifier: RecipeDetailIngredientCell.reuseId)
 
         let screenSize = UIScreen.main.bounds.size
 
         // Calculate row height
-        let cell = RecipeIngredientCell.initFromNib()
+        let cell = RecipeDetailIngredientCell.initFromNib()
         self.tableView.rowHeight = cell.systemLayoutSizeFitting(screenSize).height
 
         // Calculate header height
-        let header = RecipeStageHeader.initFromNib()
+        let header = RecipeDetailStageHeader.initFromNib()
         self.tableView.sectionHeaderHeight = header.systemLayoutSizeFitting(screenSize).height
     }
 
@@ -141,7 +141,7 @@ class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableView
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeIngredientCell.reuseId, for: indexPath) as! RecipeIngredientCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: RecipeDetailIngredientCell.reuseId, for: indexPath) as! RecipeDetailIngredientCell
         cell.backgroundColor = .clear
         cell.setKeyboardToolbar(self.keyboardToolbar)
         self.presenter.configure(cell, at: indexPath)
@@ -161,18 +161,18 @@ class RecipeViewController: UIViewController, RecipeViewToPresenter, UITableView
     // MARK: - Header Views
 
 
-    private func dequeueHeaderView(forSection section: Int) -> RecipeStageHeader {
+    private func dequeueHeaderView(forSection section: Int) -> RecipeDetailStageHeader {
 
         if let view = self.headerViewBySection[section]?.reference {
             return view
         }
 
-        let view = RecipeStageHeader.initFromNib()
+        let view = RecipeDetailStageHeader.initFromNib()
         self.headerViewBySection[section] = Weak(reference: view)
         return view
     }
 
-    private var headerViewBySection: [Int: Weak<RecipeStageHeader>] = [:]
+    private var headerViewBySection: [Int: Weak<RecipeDetailStageHeader>] = [:]
 
     private struct Weak<T: AnyObject> {
         weak var reference: T?

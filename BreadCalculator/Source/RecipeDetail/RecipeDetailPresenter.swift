@@ -1,5 +1,5 @@
 //
-//  RecipePresenter.swift
+//  RecipeDetailPresenter.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/8/19.
@@ -9,12 +9,12 @@
 import Foundation
 
 
-class RecipePresenter: RecipePresenterToView {
+class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     // MARK: - Init
 
 
-    init(_ view: RecipeViewToPresenter) {
+    init(_ view: RecipeDetailViewToPresenter) {
         self.view = view
     }
 
@@ -22,10 +22,10 @@ class RecipePresenter: RecipePresenterToView {
     // MARK: - Module Accessors
 
 
-    private weak var view: RecipeViewToPresenter!
+    private weak var view: RecipeDetailViewToPresenter!
 
 
-    // MARK: - RecipePresenterToView
+    // MARK: - RecipeDetailPresenterToView
 
 
     func viewDidLoad() {
@@ -35,11 +35,23 @@ class RecipePresenter: RecipePresenterToView {
     }
 
     func viewDidChangeLoafCount(_ loafCountString: String?) {
-        // TODO: Update loaf count
+
+        guard let loafCountString = loafCountString?.notEmpty, let loafCount = Int(loafCountString) else {
+            // TODO: Show alert and reset
+            return
+        }
+
+        self.recipe.loafCount = loafCount
     }
 
     func viewDidChangeQuantityPerLoaf(_ quantityPerLoafString: String?) {
-        // TODO: Update quantity per loaf
+
+        guard let quantityPerLoafString = quantityPerLoafString?.notEmpty, let quantityPerLoaf = Double(quantityPerLoafString) else {
+            // TODO: Show alert and reset
+            return
+        }
+
+        self.recipe.quantityPerLoaf = quantityPerLoaf
     }
 
     func viewDidChangeStageName(_ name: String?, at index: Int) {
@@ -49,7 +61,7 @@ class RecipePresenter: RecipePresenterToView {
             return
         }
 
-        self.updateStage(at: index) { $0.title = name }
+        self.stage(at: index).title = name
     }
 
     func viewDidChangeName(_ name: String?, at indexPath: IndexPath) {
@@ -59,22 +71,17 @@ class RecipePresenter: RecipePresenterToView {
             return
         }
 
-        self.updateIngredient(at: indexPath) { $0.name = name }
+        self.ingredient(at: indexPath).name = name
     }
 
     func viewDidChangeWeight(_ weightString: String?, at indexPath: IndexPath) {
 
-        guard let weightString = weightString?.notEmpty else {
+        guard let weightString = weightString?.notEmpty, let weight = Double(weightString) else {
             // TODO: Show alert and reset
             return
         }
 
-        guard let weight = Double(weightString) else {
-            // TODO: Show alert and reset
-            return
-        }
-
-        self.updateIngredient(at: indexPath) { $0.weight = weight }
+        self.ingredient(at: indexPath).weight = weight
     }
 
     private(set) var isEditing: Bool = false
@@ -93,13 +100,13 @@ class RecipePresenter: RecipePresenterToView {
         return self.stage(at: stageIndex).ingredients.count
     }
 
-    func configure(_ header: RecipeStageHeaderProtocol, at index: Int) {
+    func configure(_ header: RecipeDetailStageHeaderProtocol, at index: Int) {
         let stage = self.stage(at: index)
         header.setTitle(stage.title)
         header.setIsEditing(self.isEditing)
     }
 
-    func configure(_ cell: RecipeIngredientCellProtocol, at indexPath: IndexPath) {
+    func configure(_ cell: RecipeDetailIngredientCellProtocol, at indexPath: IndexPath) {
         let ingredient = self.ingredient(at: indexPath)
         cell.setName(ingredient.name)
         cell.setWeight("\(ingredient.weight)")
@@ -129,25 +136,11 @@ class RecipePresenter: RecipePresenterToView {
     // MARK: - Test
 
 
-    private func updateStage(at index: Int, transform: (inout Recipe.Stage)->Void) {
-        var stage = self.recipe.stages.remove(at: index)
-        transform(&stage)
-        self.recipe.stages.insert(stage, at: index)
-    }
-
-    private func updateIngredient(at indexPath: IndexPath, transform: (inout Recipe.Stage.Ingredient)->Void) {
-        self.updateStage(at: indexPath.section) { stage in
-            var ingredient = stage.ingredients.remove(at: indexPath.row)
-            transform(&ingredient)
-            stage.ingredients.insert(ingredient, at: indexPath.row)
-        }
-    }
-
     private func stage(at index: Int) -> Recipe.Stage {
         return self.recipe.stages[index]
     }
 
-    private func ingredient(at indexPath: IndexPath) -> Recipe.Stage.Ingredient {
+    private func ingredient(at indexPath: IndexPath) -> Recipe.Ingredient {
         let stage = self.stage(at: indexPath.section)
         return stage.ingredients[indexPath.row]
     }

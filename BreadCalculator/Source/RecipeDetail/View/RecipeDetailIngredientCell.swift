@@ -1,5 +1,5 @@
 //
-//  RecipeIngredientCell.swift
+//  RecipeDetailIngredientCell.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/8/19.
@@ -10,32 +10,32 @@ import Foundation
 import UIKit
 
 
-protocol RecipeIngredientCellDelegate {
-    func cell(_ cell: RecipeIngredientCell, didChangeName newName: String?)
-    func cell(_ cell: RecipeIngredientCell, didChangeWeight newWeight: String?)
+protocol RecipeDetailIngredientCellDelegate {
+    func cell(_ cell: RecipeDetailIngredientCell, didChangeName newName: String?)
+    func cell(_ cell: RecipeDetailIngredientCell, didChangeWeight newWeight: String?)
 }
 
 
-class RecipeIngredientCell: UITableViewCell, RecipeIngredientCellProtocol, UITextFieldDelegate {
+class RecipeDetailIngredientCell: UITableViewCell, RecipeDetailIngredientCellProtocol, UITextFieldDelegate {
 
     // MARK: - Reuse Identifier
 
 
-    static let reuseId: String = "\(RecipeIngredientCell.self)Identifier"
+    static let reuseId: String = "\(RecipeDetailIngredientCell.self)Identifier"
 
 
     // MARK: - Nib
 
 
-    static let nib: UINib = .init(nibName: "\(RecipeIngredientCell.self)", bundle: nil)
+    static let nib: UINib = .init(nibName: "\(RecipeDetailIngredientCell.self)", bundle: nil)
 
-    static func initFromNib() -> RecipeIngredientCell {
+    static func initFromNib() -> RecipeDetailIngredientCell {
         let items = self.nib.instantiate(withOwner: nil, options: nil)
-        return items.first as! RecipeIngredientCell
+        return items.first as! RecipeDetailIngredientCell
     }
 
 
-    // MARK: - RecipeIngredientCellProtocol
+    // MARK: - RecipeDetailIngredientCellProtocol
 
 
     func setName(_ name: String?) {

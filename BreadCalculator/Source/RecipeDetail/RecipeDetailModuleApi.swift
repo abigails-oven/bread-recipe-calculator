@@ -1,5 +1,5 @@
 //
-//  RecipeModuleApi.swift
+//  RecipeDetailModuleApi.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/8/19.
@@ -12,7 +12,7 @@ import Foundation
 // MARK: - View
 
 
-protocol RecipeViewToPresenter: class {
+protocol RecipeDetailViewToPresenter: class {
     func setIsEditing(_ isEditing: Bool)
     func setEditButtonTitle(_ title: String?)
     func setTitle(_ title: String?)
@@ -20,12 +20,12 @@ protocol RecipeViewToPresenter: class {
     func setQuantityPerLoaf(_ quantityPerLoaf: String?)
 }
 
-protocol RecipeStageHeaderProtocol: class {
+protocol RecipeDetailStageHeaderProtocol: class {
     func setTitle(_ title: String?)
     func setIsEditing(_ isEditing: Bool)
 }
 
-protocol RecipeIngredientCellProtocol: class {
+protocol RecipeDetailIngredientCellProtocol: class {
     func setName(_ name: String?)
     func setWeight(_ weight: String?)
     func setQuantity(_ quantity: String?)
@@ -36,7 +36,7 @@ protocol RecipeIngredientCellProtocol: class {
 // MARK: - Presenter
 
 
-protocol RecipePresenterToView: class {
+protocol RecipeDetailPresenterToView: class {
 
     func viewDidLoad()
     // Editing
@@ -50,7 +50,7 @@ protocol RecipePresenterToView: class {
     // Table Setup
     var numberOfStages: Int { get }
     func numberOfIngredients(forStage stageIndex: Int) -> Int
-    func configure(_ header: RecipeStageHeaderProtocol, at index: Int)
-    func configure(_ cell: RecipeIngredientCellProtocol, at indexPath: IndexPath)
+    func configure(_ header: RecipeDetailStageHeaderProtocol, at index: Int)
+    func configure(_ cell: RecipeDetailIngredientCellProtocol, at indexPath: IndexPath)
     func canEditCell(at indexPath: IndexPath) -> Bool
 }

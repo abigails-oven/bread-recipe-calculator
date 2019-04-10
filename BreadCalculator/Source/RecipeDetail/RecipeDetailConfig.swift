@@ -1,5 +1,5 @@
 //
-//  RecipeConfig.swift
+//  RecipeDetailConfig.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/8/19.
@@ -9,12 +9,12 @@
 import Foundation
 
 
-class RecipeConfig {
+class RecipeDetailConfig {
 
     @discardableResult
-    init(_ view: RecipeViewController) {
+    init(_ view: RecipeDetailViewController) {
 
-        let presenter = RecipePresenter(view)
+        let presenter = RecipeDetailPresenter(view)
         view.presenter = presenter
     }
 }

@@ -1,5 +1,5 @@
 //
-//  RecipeStageHeader.swift
+//  RecipeDetailStageHeader.swift
 //  BreadCalculator
 //
 //  Created by Scott Levie on 4/9/19.
@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 
-class RecipeStageHeader: UIView, RecipeStageHeaderProtocol {
+class RecipeDetailStageHeader: UIView, RecipeDetailStageHeaderProtocol {
 
-    static func initFromNib() -> RecipeStageHeader {
-        let nib = UINib(nibName: "\(RecipeStageHeader.self)", bundle: nil)
+    static func initFromNib() -> RecipeDetailStageHeader {
+        let nib = UINib(nibName: "\(RecipeDetailStageHeader.self)", bundle: nil)
         let nibItems = nib.instantiate(withOwner: nil, options: nil)
-        return nibItems.first as! RecipeStageHeader
+        return nibItems.first as! RecipeDetailStageHeader
     }
 
 
-    // MARK: - RecipeStageHeaderProtocol
+    // MARK: - RecipeDetailStageHeaderProtocol
 
 
     func setTitle(_ title: String?) {
