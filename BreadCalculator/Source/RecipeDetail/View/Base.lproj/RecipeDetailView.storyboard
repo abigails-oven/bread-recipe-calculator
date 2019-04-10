@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXP-8x-AuO">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="531"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="657"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bread Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="624-ja-oOc">
                                                 <rect key="frame" x="0.0" y="32" width="414" height="29"/>
@@ -31,10 +31,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="c4Z-4F-36v">
-                                                <rect key="frame" x="57" y="93" width="300" height="438"/>
+                                                <rect key="frame" x="32" y="93" width="350" height="564"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8yC-dW-qkk">
-                                                        <rect key="frame" x="14" y="0.0" width="272.5" height="30"/>
+                                                        <rect key="frame" x="39" y="0.0" width="272.5" height="30"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="nwb-9W-tOX" userLabel="loaf count">
                                                                 <rect key="frame" x="0.0" y="0.0" width="115.5" height="30"/>
@@ -85,19 +85,30 @@
                                                         </subviews>
                                                     </stackView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xr1-cc-QqP">
-                                                        <rect key="frame" x="0.0" y="38" width="300" height="400"/>
+                                                        <rect key="frame" x="0.0" y="38" width="350" height="480"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" priority="249" constant="400" id="UmV-Yt-Rdf"/>
-                                                            <constraint firstAttribute="width" priority="249" constant="300" id="v00-42-BCw"/>
+                                                            <constraint firstAttribute="height" constant="480" id="UmV-Yt-Rdf"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="dataSource" destination="BYZ-38-t0r" id="fum-vy-RHW"/>
                                                             <outlet property="delegate" destination="BYZ-38-t0r" id="mN0-b6-Lld"/>
                                                         </connections>
                                                     </tableView>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsd-G2-iq8">
+                                                        <rect key="frame" x="78.5" y="526" width="193" height="38"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <inset key="contentEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                        <state key="normal" title="Solve For Flour Quantity">
+                                                            <color key="titleColor" red="0.33805567780000001" green="0.15168533270000001" blue="0.073903181989999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="didTapSolveForFlourButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pdt-nf-V1J"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstItem="Xr1-cc-QqP" firstAttribute="width" secondItem="c4Z-4F-36v" secondAttribute="width" id="GiW-wg-IgE"/>
                                                     <constraint firstAttribute="width" priority="249" id="XXh-ZD-VEh"/>
                                                 </constraints>
                                             </stackView>
@@ -106,6 +117,7 @@
                                         <constraints>
                                             <constraint firstItem="624-ja-oOc" firstAttribute="centerX" secondItem="CXP-8x-AuO" secondAttribute="centerX" id="2sq-fF-hJb"/>
                                             <constraint firstAttribute="bottom" secondItem="c4Z-4F-36v" secondAttribute="bottom" id="6vQ-uG-Hhv"/>
+                                            <constraint firstItem="c4Z-4F-36v" firstAttribute="leading" secondItem="CXP-8x-AuO" secondAttribute="leading" constant="32" id="9Hj-wN-Ik2"/>
                                             <constraint firstItem="624-ja-oOc" firstAttribute="top" secondItem="CXP-8x-AuO" secondAttribute="top" constant="32" id="KmX-wg-VGV"/>
                                             <constraint firstItem="c4Z-4F-36v" firstAttribute="top" secondItem="624-ja-oOc" secondAttribute="bottom" constant="32" id="Rz3-q3-2K0"/>
                                             <constraint firstItem="624-ja-oOc" firstAttribute="width" secondItem="CXP-8x-AuO" secondAttribute="width" id="byf-EZ-mvF"/>
@@ -145,6 +157,7 @@
                         <outlet property="editButton" destination="DyP-ps-rZ7" id="A3d-wb-FWU"/>
                         <outlet property="loafCountField" destination="6N2-G5-7Hl" id="twg-pg-gcb"/>
                         <outlet property="quantityPerLoafField" destination="KOf-0A-sjk" id="n60-il-Yi5"/>
+                        <outlet property="solveForFlourButton" destination="lsd-G2-iq8" id="MX1-pe-YpL"/>
                         <outlet property="tableView" destination="Xr1-cc-QqP" id="cNI-LT-HTa"/>
                         <outlet property="titleLabel" destination="624-ja-oOc" id="ayv-G0-p97"/>
                     </connections>

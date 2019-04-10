@@ -43,6 +43,7 @@ protocol RecipeDetailPresenterToView: class {
     // Nav Buttons
     func userDidTapBackButton()
     func userDidTapEditButton()
+    func userDidTapSolveForFlourButton()
     // Field Changes
     func userDidChangeLoafCount(_ loafCountString: String?)
     func userDidChangeQuantityPerLoaf(_ quantityPerLoafString: String?)
@@ -71,6 +72,7 @@ protocol RecipeDetailInteractorToPresenter: class {
     func setIngredientName(_ name: String, id: UUID)
     func setIngredientWeight(_ weight: Double, id: UUID)
     func quantityForIngredient(withId id: UUID) -> Double
+    func solveForFlourQuantity(_ flourQuantity: Double)
 }
 
 struct RecipeDetail {
@@ -85,4 +87,5 @@ struct RecipeDetail {
 protocol RecipeDetailRouterToPresenter {
     func dismiss()
     func presentAlert(_ data: AlertData)
+    func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void)
 }

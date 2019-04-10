@@ -15,7 +15,7 @@ extension Recipe {
 
     static let wheat: Recipe = .init(title: Localized.wheatTitle, stages: [
         .init(title: Localized.stage1, ingredients: [
-            .init(name: Localized.siftedWheatFlour, weight: 100),
+            .init(name: Localized.siftedWheatFlour, weight: 100, isFlour: true),
             .init(name: Localized.water, weight: 70),
             .init(name: Localized.leaven, weight: 20)
         ]),
@@ -27,7 +27,7 @@ extension Recipe {
 
     static let kamut: Recipe = .init(title: Localized.kamutTitle, stages: [
         .init(title: Localized.stage1, ingredients: [
-            .init(name: Localized.kamutFlour, weight: 100),
+            .init(name: Localized.kamutFlour, weight: 100, isFlour: true),
             .init(name: Localized.water, weight: 63),
             .init(name: Localized.leaven, weight: 20)
         ]),
@@ -39,8 +39,8 @@ extension Recipe {
 
     static let whiteSourdough: Recipe = .init(title: Localized.whiteSourdoughTitle, stages: [
         .init(title: Localized.stage1, ingredients: [
-            .init(name: Localized.whiteFlour, weight: 90),
-            .init(name: Localized.wheatFlour, weight: 10),
+            .init(name: Localized.whiteFlour, weight: 90, isFlour: true),
+            .init(name: Localized.wheatFlour, weight: 10, isFlour: true),
             .init(name: Localized.water, weight: 60),
             .init(name: Localized.leaven, weight: 20)
         ]),
@@ -52,7 +52,7 @@ extension Recipe {
 
     static let bran: Recipe = .init(title: Localized.branTitle, stages: [
         .init(title: "", ingredients: [
-            .init(name: Localized.branFlour, weight: 100),
+            .init(name: Localized.branFlour, weight: 100, isFlour: true),
             .init(name: Localized.water, weight: 100),
             .init(name: Localized.leaven, weight: 20),
             .init(name: Localized.salt, weight: 2.6)

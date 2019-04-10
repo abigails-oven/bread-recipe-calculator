@@ -45,10 +45,12 @@ class Recipe {
         let id: UUID = .init()
         var name: String
         var weight: Double
+        var isFlour: Bool
 
-        init(name: String = "", weight: Double = 0) {
+        init(name: String = "", weight: Double = 0, isFlour: Bool = false) {
             self.name = name
             self.weight = weight
+            self.isFlour = isFlour
         }
 
         static let placeholder = NSLocalizedString("Ingredient", comment: "")

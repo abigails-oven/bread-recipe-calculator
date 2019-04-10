@@ -25,8 +25,8 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
 
     private weak var view: RecipeDetailViewToPresenter!
-    private let interactor: RecipeDetailInteractorToPresenter!
-    private let router: RecipeDetailRouterToPresenter!
+    private let interactor: RecipeDetailInteractorToPresenter
+    private let router: RecipeDetailRouterToPresenter
 
 
     // MARK: - RecipeDetailPresenterToView
@@ -48,6 +48,23 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         // Toggle edit mode
         self.isEditing = !self.isEditing
         self.updateViewEditingAppearance()
+    }
+
+    func userDidTapSolveForFlourButton() {
+
+        self.router.promptForFlourQuantity(title: self.localized.flourPrompt.title) { flourQuantityString in
+
+            // TODO: Strip formatting properly
+            guard let flourQuantityString = flourQuantityString?.notEmpty, let flourQuantity = Double(flourQuantityString) else {
+                return
+            }
+
+            // TODO: Format properly
+            self.interactor.solveForFlourQuantity(flourQuantity)
+            self.view.setLoafCount("\(self.interactor.loafCount)")
+            self.view.setQuantityPerLoaf("\(self.interactor.quantityPerLoaf)")
+            self.updateViewQuantities()
+        }
     }
 
     func userDidChangeLoafCount(_ loafCountString: String?) {
@@ -149,7 +166,7 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     private func updateViewEditingAppearance() {
 
         // Set button title
-        let strings = self.localizedStrings.editButton
+        let strings = self.localized.editButton
         let title = self.isEditing ? strings.done : strings.edit
         self.view.setEditButtonTitle(title)
 
@@ -190,10 +207,15 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
     // MARK: - Localized Strings
 
 
-    private let localizedStrings = LocalizedStrings()
+    private let localized = LocalizedStrings()
 
     private struct LocalizedStrings {
+        let flourPrompt = FlourPrompt()
         let editButton = EditButton()
+
+        struct FlourPrompt {
+            let title = NSLocalizedString("Total Flour Quantity", comment: "")
+        }
 
         struct EditButton {
             let edit = NSLocalizedString("Edit", comment: "")

@@ -33,6 +33,8 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
         navBar?.barTintColor = self.view.backgroundColor
         navBar?.tintColor = .white
 
+        self.solveForFlourButton.layer.cornerRadius = 5
+
         self.presenter.viewDidLoad()
     }
 
@@ -127,6 +129,17 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
         default:
             assertionFailure("Unsupported field")
         }
+    }
+
+
+    // MARK: - Flour Quantity
+
+
+
+    @IBOutlet weak var solveForFlourButton: UIButton!
+
+    @IBAction private func didTapSolveForFlourButton(_ sender: UIButton) {
+        self.presenter.userDidTapSolveForFlourButton()
     }
 
 

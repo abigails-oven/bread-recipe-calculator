@@ -75,6 +75,23 @@ class RecipeDetailInteractor: RecipeDetailInteractorToPresenter {
         return self.quantityByIngredientId[id]!
     }
 
+    func solveForFlourQuantity(_ flourQuantity: Double) {
+
+        let flourWeight = self.ingredientById.values
+            // Filter only ingredients that are flour
+            .filter{ $0.isFlour }
+            // Add all the weights together
+            .reduce(0, { $0 + $1.weight })
+
+        let totalWeight = self.ingredientById.values.reduce(0, { $0 + $1.weight })
+        let totalQuantity = flourQuantity * (totalWeight / flourWeight)
+
+        self.loafCount = Int(totalQuantity / self.quantityPerLoaf)
+        self.quantityPerLoaf = totalQuantity / Double(self.loafCount)
+
+        self.updateCachedQuantities()
+    }
+
 
     // MARK: - Recipe
 
