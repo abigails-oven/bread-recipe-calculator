@@ -38,14 +38,6 @@ class RecipeDetailViewController: UIViewController, RecipeDetailViewToPresenter,
         self.presenter.viewDidLoad()
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if self.isMovingFromParent {
-            self.presenter.userDidTapBackButton()
-        }
-    }
-
 
     // MARK: - Module Accessors
 

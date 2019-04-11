@@ -39,10 +39,6 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
         self.updateViewQuantityPerLoaf()
     }
 
-    func userDidTapBackButton() {
-        self.router.dismiss()
-    }
-
     func userDidTapEditButton() {
         // Toggle edit mode
         self.isEditing = !self.isEditing

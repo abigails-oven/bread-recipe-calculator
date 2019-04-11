@@ -38,10 +38,8 @@ protocol RecipeDetailIngredientCellProtocol: class {
 
 
 protocol RecipeDetailPresenterToView: class {
-
     func viewDidLoad()
-    // Nav Buttons
-    func userDidTapBackButton()
+    // Buttons
     func userDidTapEditButton()
     func userDidTapSolveForFlourButton()
     // Field Changes
@@ -85,7 +83,6 @@ struct RecipeDetail {
 
 
 protocol RecipeDetailRouterToPresenter {
-    func dismiss()
     func presentAlert(_ data: AlertData)
     func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void)
 }

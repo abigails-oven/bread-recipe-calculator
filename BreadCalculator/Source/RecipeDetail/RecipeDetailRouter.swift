@@ -25,10 +25,6 @@ class RecipeDetailRouter: RecipeDetailRouterToPresenter {
     // MARK: - RecipeDetailRouterToPresenter
 
 
-    func dismiss() {
-        self.view.dismiss(animated: true, completion: nil)
-    }
-
     func presentAlert(_ data: AlertData) {
 
         let alert = UIAlertController(data)
