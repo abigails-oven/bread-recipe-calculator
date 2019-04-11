@@ -23,6 +23,7 @@ class MockRecipeDetailRouter: RecipeDetailRouterToPresenter {
     func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void) {
         self.mock.callCounts.promptForFlourQuantity += 1
         self.mock.values.promptForFlourQuantityTitle = title
+        completion(self.mock.values.promptForFlourQuantityCompletionValue)
     }
 
 
@@ -44,6 +45,7 @@ class MockRecipeDetailRouter: RecipeDetailRouterToPresenter {
         struct Values {
             var presentAlertData: AlertData?
             var promptForFlourQuantityTitle: String = ""
+            var promptForFlourQuantityCompletionValue: String?
         }
     }
 }

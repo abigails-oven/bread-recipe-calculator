@@ -52,10 +52,30 @@ class TestRecipeDetailPresenter: XCTestCase {
         // Assert isEditing was toggled
         XCTAssert(values.isEditing == !oldValues.isEditing)
 
+        // Assert each method was called exactly once
         let counts = self.view.mock.callCounts
-        // Assert setEditButtonTitle was called exactly once
         XCTAssert((counts.setEditButtonTitle - oldCounts.setEditButtonTitle) == 1)
-        // Assert setIsEditing was called exactly once
         XCTAssert((counts.setIsEditing - oldCounts.setIsEditing) == 1)
+    }
+
+    func testUserDidTapSolveForFlourButton() {
+
+        self.testSubject.viewDidLoad()
+
+        self.router.mock.values.promptForFlourQuantityCompletionValue = "20.1"
+
+        let oldViewCounts = self.view.mock.callCounts
+
+        self.testSubject.userDidTapSolveForFlourButton()
+
+        // Assert value was converted to a number properly
+        let interactorValues = self.interactor.mock.values
+        XCTAssert(interactorValues.flourQuantity == 20.1)
+
+        // Assert each view method was called exactly once
+        let viewCounts = self.view.mock.callCounts
+        XCTAssert((viewCounts.setLoafCount - oldViewCounts.setLoafCount) == 1)
+        XCTAssert((viewCounts.setQuantityPerLoaf - oldViewCounts.setQuantityPerLoaf) == 1)
+        XCTAssert((viewCounts.setQuantities - oldViewCounts.setQuantities) == 1)
     }
 }
