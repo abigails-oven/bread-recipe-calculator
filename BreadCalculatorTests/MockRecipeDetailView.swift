@@ -17,32 +17,32 @@ class MockRecipeDetailView: RecipeDetailViewToPresenter {
 
     func setIsEditing(_ isEditing: Bool) {
         self.mock.callCounts.setIsEditing += 1
-        self.mock.values.isEditing = isEditing
+        self.mock.input.isEditing = isEditing
     }
 
     func setEditButtonTitle(_ title: String?) {
         self.mock.callCounts.setEditButtonTitle += 1
-        self.mock.values.editButtonTitle = title
+        self.mock.input.editButtonTitle = title
     }
 
     func setTitle(_ title: String?) {
         self.mock.callCounts.setTitle += 1
-        self.mock.values.title = title
+        self.mock.input.title = title
     }
 
     func setLoafCount(_ loafCount: String?) {
         self.mock.callCounts.setLoafCount += 1
-        self.mock.values.loafCount = loafCount
+        self.mock.input.loafCount = loafCount
     }
 
     func setQuantityPerLoaf(_ quantityPerLoaf: String?) {
         self.mock.callCounts.setQuantityPerLoaf += 1
-        self.mock.values.quantityPerLoaf = quantityPerLoaf
+        self.mock.input.quantityPerLoaf = quantityPerLoaf
     }
 
     func setQuantities(_ quantityByIndexPath: [IndexPath: String]) {
         self.mock.callCounts.setQuantities += 1
-        self.mock.values.quantities = quantityByIndexPath
+        self.mock.input.quantities = quantityByIndexPath
     }
 
 
@@ -54,7 +54,11 @@ class MockRecipeDetailView: RecipeDetailViewToPresenter {
     struct Mock {
 
         var callCounts: Counts = .init()
-        var values: Values = .init()
+        var input: Input = .init()
+
+        mutating func clearCallCounts() {
+            self.callCounts = .init()
+        }
 
         struct Counts {
             var setIsEditing: Int = 0
@@ -65,7 +69,7 @@ class MockRecipeDetailView: RecipeDetailViewToPresenter {
             var setQuantities: Int = 0
         }
 
-        struct Values {
+        struct Input {
             var isEditing: Bool = false
             var editButtonTitle: String?
             var title: String?

@@ -19,55 +19,55 @@ class MockRecipeDetailInteractor: RecipeDetailInteractorToPresenter {
     }
 
     var recipeTitle: String {
-        get { return self.mock.values.recipeTitle }
+        get { return self.mock.output.recipeTitle }
         set {
             self.mock.callCounts.setRecipeTitle += 1
-            self.mock.values.recipeTitle = newValue
+            self.mock.input.recipeTitle = newValue
         }
     }
 
     var loafCount: Int {
-        get { return self.mock.values.loafCount }
+        get { return self.mock.output.loafCount }
         set {
             self.mock.callCounts.setLoafCount += 1
-            self.mock.values.loafCount = newValue
+            self.mock.input.loafCount = newValue
         }
     }
 
     var quantityPerLoaf: Double {
-        get { return self.mock.values.quantityPerLoaf }
+        get { return self.mock.output.quantityPerLoaf }
         set {
             self.mock.callCounts.setQuantityPerLoaf += 1
-            self.mock.values.quantityPerLoaf = newValue
+            self.mock.input.quantityPerLoaf = newValue
         }
     }
 
     var stages: [RecipeDetail.Stage] {
-        return self.mock.values.stages
+        return self.mock.output.stages
     }
 
     func setStageTitle(_ title: String, id: UUID) {
         self.mock.callCounts.setStageTitle += 1
-        self.mock.values.stageTitle = title
+        self.mock.input.stageTitle = title
     }
 
     func setIngredientName(_ name: String, id: UUID) {
         self.mock.callCounts.setIngredientName += 1
-        self.mock.values.ingredientName = name
+        self.mock.input.ingredientName = name
     }
 
     func setIngredientWeight(_ weight: Double, id: UUID) {
         self.mock.callCounts.setIngredientWeight += 1
-        self.mock.values.ingredientWeight = weight
+        self.mock.input.ingredientWeight = weight
     }
 
     func quantityForIngredient(withId id: UUID) -> Double {
-        return self.mock.values.quantityForIngredient
+        return self.mock.output.quantityForIngredient
     }
 
     func solveForFlourQuantity(_ flourQuantity: Double) {
         self.mock.callCounts.solveForFlourQuantity += 1
-        self.mock.values.flourQuantity = flourQuantity
+        self.mock.input.flourQuantity = flourQuantity
     }
 
 
@@ -79,7 +79,12 @@ class MockRecipeDetailInteractor: RecipeDetailInteractorToPresenter {
     struct Mock {
 
         var callCounts: Counts = .init()
-        var values: Values = .init()
+        var input: Input = .init()
+        var output: Output = .init()
+
+        mutating func clearCallCounts() {
+            self.callCounts = .init()
+        }
 
         struct Counts {
             var saveRecipe: Int = 0
@@ -92,16 +97,22 @@ class MockRecipeDetailInteractor: RecipeDetailInteractorToPresenter {
             var solveForFlourQuantity: Int = 0
         }
 
-        struct Values {
+        struct Input {
+            var recipeTitle: String = ""
+            var loafCount: Int = 0
+            var quantityPerLoaf: Double = 0
+            var stageTitle: String = ""
+            var ingredientName: String = ""
+            var ingredientWeight: Double = 0
+            var flourQuantity: Double = 0
+        }
+
+        struct Output {
             var recipeTitle: String = ""
             var loafCount: Int = 0
             var quantityPerLoaf: Double = 0
             var stages: [RecipeDetail.Stage] = []
-            var stageTitle: String = ""
-            var ingredientName: String = ""
-            var ingredientWeight: Double = 0
             var quantityForIngredient: Double = 0
-            var flourQuantity: Double = 0
         }
     }
 }

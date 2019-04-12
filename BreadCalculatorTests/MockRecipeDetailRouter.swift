@@ -17,13 +17,13 @@ class MockRecipeDetailRouter: RecipeDetailRouterToPresenter {
 
     func presentAlert(_ data: AlertData) {
         self.mock.callCounts.presentAlert += 1
-        self.mock.values.presentAlertData = data
+        self.mock.input.alertData = data
     }
 
-    func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void) {
+    func promptForFlourQuantity(title: String, completion: @escaping (Double?)->Void) {
         self.mock.callCounts.promptForFlourQuantity += 1
-        self.mock.values.promptForFlourQuantityTitle = title
-        completion(self.mock.values.promptForFlourQuantityCompletionValue)
+        self.mock.input.flourQuantity = title
+        completion(self.mock.output.flourQuantity)
     }
 
 
@@ -35,17 +35,25 @@ class MockRecipeDetailRouter: RecipeDetailRouterToPresenter {
     struct Mock {
 
         var callCounts: Count = .init()
-        var values: Values = .init()
+        var input: Input = .init()
+        var output: Output = .init()
+
+        mutating func clearCallCounts() {
+            self.callCounts = .init()
+        }
 
         struct Count {
             var presentAlert: Int = 0
             var promptForFlourQuantity: Int = 0
         }
 
-        struct Values {
-            var presentAlertData: AlertData?
-            var promptForFlourQuantityTitle: String = ""
-            var promptForFlourQuantityCompletionValue: String?
+        struct Input {
+            var alertData: AlertData?
+            var flourQuantity: String = ""
+        }
+
+        struct Output {
+            var flourQuantity: Double?
         }
     }
 }
