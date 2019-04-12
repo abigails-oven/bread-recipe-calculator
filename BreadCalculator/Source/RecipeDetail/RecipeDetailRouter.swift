@@ -34,7 +34,10 @@ class RecipeDetailRouter: RecipeDetailRouterToPresenter {
     func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void) {
 
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        alert.addTextField { self.textField = $0 }
+        alert.addTextField { textField in
+            textField.keyboardType = .decimalPad
+            self.textField = textField
+        }
 
         let doneAction = UIAlertAction(
             title: NSLocalizedString("Done", comment: ""),
