@@ -31,7 +31,7 @@ class RecipeDetailRouter: RecipeDetailRouterToPresenter {
         self.view.present(alert, animated: true, completion: nil)
     }
 
-    func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void) {
+    func promptForFlourQuantity(title: String, completion: @escaping (Double?) -> Void) {
 
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
@@ -43,8 +43,8 @@ class RecipeDetailRouter: RecipeDetailRouterToPresenter {
             title: NSLocalizedString("Done", comment: ""),
             style: .default,
             handler: { [weak self] _ in
-                if let textField = self?.textField {
-                    completion(textField.text)
+                if let numberString = self?.textField?.text, let number = Double(numberString) {
+                    completion(number)
                 }
             }
         )

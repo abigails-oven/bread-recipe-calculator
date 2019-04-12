@@ -47,9 +47,9 @@ class RecipeDetailPresenter: RecipeDetailPresenterToView {
 
     func userDidTapSolveForFlourButton() {
 
-        self.router.promptForFlourQuantity(title: self.localized.flourPrompt.title) { flourQuantityString in
+        self.router.promptForFlourQuantity(title: self.localized.flourPrompt.title) { flourQuantity in
 
-            guard let flourQuantityString = flourQuantityString?.notEmpty, let flourQuantity = self.stripToDouble(flourQuantityString) else {
+            guard let flourQuantity = flourQuantity else {
                 // TODO: Show alert
                 return
             }

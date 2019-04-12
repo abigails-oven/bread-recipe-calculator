@@ -84,5 +84,5 @@ struct RecipeDetail {
 
 protocol RecipeDetailRouterToPresenter {
     func presentAlert(_ data: AlertData)
-    func promptForFlourQuantity(title: String, completion: @escaping (String?)->Void)
+    func promptForFlourQuantity(title: String, completion: @escaping (Double?)->Void)
 }
